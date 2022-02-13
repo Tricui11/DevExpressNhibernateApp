@@ -1,0 +1,8 @@
+CREATE TABLE [dbo.Categories] (
+	[ID] INT IDENTITY (1, 1) NOT NULL,
+	[ParentID] INT NULL,
+	[Name] NVARCHAR (MAX) NULL,
+	[Description] NVARCHAR (MAX) NULL,
+	[KeyWords] NVARCHAR (MAX) NULL,
+	CONSTRAINT [PK_dbo.Category] PRIMARY KEY CLUSTERED ([ID] ASC)
+);

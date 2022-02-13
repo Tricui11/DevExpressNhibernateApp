@@ -1,0 +1,44 @@
+﻿<Window x:Class="StoreWPFDXApp.Views.CategoriesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:ViewModels="clr-namespace:StoreWPFDXApp.ViewModels"
+        mc:Ignorable="d" Height="400" Width="600"
+        Title="Категории" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <ViewModels:CategoriesViewModel/>
+    </Window.DataContext>
+
+    <DockPanel>
+
+        <dxg:TreeListControl ItemsSource="{Binding Categories}">
+            <dxg:TreeListControl.View>
+                <dxg:TreeListView x:Name="tlView"
+                                  KeyFieldName="ID"
+                                  ParentFieldName="ParentID"
+                                  AllowPerPixelScrolling="True"
+                                  AutoExpandAllNodes="True"
+                                  TreeColumnFieldName="Name"
+                                  NewItemRowPosition="Bottom"
+                                  NavigationStyle="Cell"
+                                  AllowDragDrop="True"
+                                  ShowDragDropHint="False"
+                                  RowIndent="16"
+                                  UseEvenRowBackground="True"
+                                  EnterMoveNextColumn="False"
+                                  InitNewNode="OnInitNewNode">
+                    <dxg:TreeListView.FormatConditions>
+                        <dxg:FormatCondition FieldName="IsNew" PredefinedFormatName="BoldText" Expression="[IsUpdated] = true" ApplyToRow="True" />
+                    </dxg:TreeListView.FormatConditions>
+                </dxg:TreeListView>
+            </dxg:TreeListControl.View>
+            <dxg:TreeListColumn FieldName="Name" Header="Наименование" Width="*" />
+            <dxg:TreeListColumn FieldName="Description" Header="Описание" Width="100" />
+            <dxg:TreeListColumn FieldName="KeyWords" Header="Ключевые слова" Width="100" />
+        </dxg:TreeListControl>
+        
+    </DockPanel>
+
+</Window>
