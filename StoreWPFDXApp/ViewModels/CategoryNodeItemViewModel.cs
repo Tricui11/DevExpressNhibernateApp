@@ -1,15 +1,31 @@
 ﻿using System.ComponentModel;
+using System.Threading.Tasks;
+using StoreWPFDXApp.ViewModels.Services.Abstract;
 
 namespace StoreWPFDXApp.Data {
   public class CategoryNodeItemViewModel : IEditableObject {
     private readonly Categories _model;
-    public CategoryNodeItemViewModel(Categories model) {
-      _model = model;
+
+    public CategoryNodeItemViewModel() {
+      _model = new Categories();
     }
+
+    public CategoryNodeItemViewModel(Categories model, ICategoriesService categoriesService) {
+      _model = model;
+      CategoriesService = categoriesService;
+    }
+
+    public ICategoriesService CategoriesService { get; set; }
+
     public int ID => _model.ID;
     public int ParentID {
       get => _model.ParentID;
-      set => _model.ParentID = value;
+      set {
+        if (_model.ID != 0) {
+          Task.Run(async () => await CategoriesService.UpdateParentAsync(_model.ID, value));
+        }
+        _model.ParentID = value;
+      }
     }
     public string Name {
       get => _model.Name;
@@ -28,6 +44,16 @@ namespace StoreWPFDXApp.Data {
 
     void IEditableObject.BeginEdit() { IsUpdated = false; }
     void IEditableObject.CancelEdit() { IsUpdated = false; }
-    void IEditableObject.EndEdit() { IsUpdated = true; }
+    void IEditableObject.EndEdit() {
+      if (IsUpdated) { return; }
+      IsUpdated = true;
+      if (_model.ID == 0) {
+        var newID = Task.Run(async () => await CategoriesService.CreateAsync(_model)).Result;
+        _model.ID = newID;
+      }
+      else {
+        Task.Run(async () => await CategoriesService.UpdateAsync(_model));
+      }
+    }
   }
 }

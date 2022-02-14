@@ -1,5 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
+using DevExpress.Xpf.Grid;
 
 namespace StoreWPFDXApp.Views {
   /// <summary>
@@ -10,8 +10,8 @@ namespace StoreWPFDXApp.Views {
       InitializeComponent();
     }
 
-    void OnInitNewNode(object sender, DevExpress.Xpf.Grid.TreeList.TreeListNodeEventArgs e) {
-      tlView.SetNodeValue(e.Node, "ID", tlView.TotalNodesCount + 1);
+    private void DeleteNodeClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e) {
+      GridCommands.DeleteFocusedRow.Execute(sender, e.Item);
     }
   }
 }

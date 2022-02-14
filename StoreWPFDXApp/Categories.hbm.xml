@@ -12,6 +12,7 @@
     <property name = "Name"/>
     <property name = "Description"/>
     <property name = "KeyWords"/>
+    <property name = "IsDeleted"/>
   </class>
 
 </hibernate-mapping>

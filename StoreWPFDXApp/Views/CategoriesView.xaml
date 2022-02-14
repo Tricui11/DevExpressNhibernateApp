@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
         xmlns:ViewModels="clr-namespace:StoreWPFDXApp.ViewModels"
         xmlns:common="clr-namespace:StoreWPFDXApp.Common"
         DataContext="{common:DISource Type=ViewModels:CategoriesViewModel}"
@@ -11,8 +13,8 @@
         Title="Категории" WindowStartupLocation="CenterScreen">
 
     <DockPanel>
-
-        <dxg:TreeListControl ItemsSource="{Binding Categories}">
+        
+        <dxg:TreeListControl ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
             <dxg:TreeListControl.View>
                 <dxg:TreeListView x:Name="tlView"
                                   KeyFieldName="ID"
@@ -26,11 +28,15 @@
                                   ShowDragDropHint="False"
                                   RowIndent="16"
                                   UseEvenRowBackground="True"
-                                  EnterMoveNextColumn="False"
-                                  InitNewNode="OnInitNewNode">
+                                  EnterMoveNextColumn="False">
                     <dxg:TreeListView.FormatConditions>
                         <dxg:FormatCondition FieldName="IsNew" PredefinedFormatName="BoldText" Expression="[IsUpdated] = true" ApplyToRow="True" />
                     </dxg:TreeListView.FormatConditions>
+                    <dxg:TreeListView.RowCellMenuCustomizations>
+                        <dxb:BarButtonItem Glyph="{dx:DXImage Image=Delete_16x16.png}" Content="Удалить" 
+                                           ItemClick="DeleteNodeClick"
+                                           Command="{Binding View.DataContext.DeleteSelectedItemCommand}"/>
+                    </dxg:TreeListView.RowCellMenuCustomizations>
                 </dxg:TreeListView>
             </dxg:TreeListControl.View>
             <dxg:TreeListColumn FieldName="Name" Header="Наименование" Width="*" />

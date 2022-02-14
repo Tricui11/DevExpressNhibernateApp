@@ -4,5 +4,6 @@ CREATE TABLE [dbo.Categories] (
 	[Name] NVARCHAR (MAX) NULL,
 	[Description] NVARCHAR (MAX) NULL,
 	[KeyWords] NVARCHAR (MAX) NULL,
+	[IsDeleted] Bit NOT NULL DEFAULT 0,
 	CONSTRAINT [PK_dbo.Category] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
