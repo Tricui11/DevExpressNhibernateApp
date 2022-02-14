@@ -5,10 +5,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ViewModels="clr-namespace:StoreWPFDXApp.ViewModels"
+    xmlns:common="clr-namespace:StoreWPFDXApp.Common"
+    DataContext="{common:DISource Type=ViewModels:MainViewModel}"
     mc:Ignorable="d">
-    <UserControl.DataContext>
-        <ViewModels:MainViewModel/>
-    </UserControl.DataContext>
     <StackPanel>
         <Menu>
             <MenuItem Header="Справочники">
