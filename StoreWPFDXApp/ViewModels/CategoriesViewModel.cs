@@ -3,15 +3,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevExpress.Mvvm;
 using StoreWPFDXApp.Data;
-using StoreWPFDXApp.ViewModels.Services;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
 
 namespace StoreWPFDXApp.ViewModels {
   public class CategoriesViewModel : ViewModelBase {
     private readonly ICategoriesService _categoriesService;
 
-    public CategoriesViewModel() {
-      _categoriesService = new CategoriesService();
+    public CategoriesViewModel(ICategoriesService categoriesService) {
+      _categoriesService = categoriesService;
 
       var data = Task.Run(async () => await _categoriesService.GetAllAsync()).Result;
       Categories.AddRange(data.Select(x => new CategoryNodeItemViewModel(x)));

@@ -122,12 +122,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Repositories\Abstract\ICategoryRepository.cs" />
+    <Compile Include="Models\Repositories\Abstract\IRepository.cs" />
+    <Compile Include="Models\Repositories\CategoryRepository.cs" />
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
     <Compile Include="ViewModels\CategoryNodeItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Services\Abstract\ICategoriesService.cs" />
     <Compile Include="ViewModels\Services\CategoriesService.cs" />
-    <Compile Include="ViewModels\Services\NHibernateService.cs" />
     <Compile Include="Views\CategoriesView.xaml.cs">
       <DependentUpon>CategoriesView.xaml</DependentUpon>
     </Compile>

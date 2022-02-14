@@ -3,7 +3,7 @@ using StoreWPFDXApp.Views;
 
 namespace StoreWPFDXApp.ViewModels {
   public class MainViewModel : ViewModelBase {
-    public MainViewModel(INavigationService navigationService) {
+    public MainViewModel() {
       OpenCategoriesWindowCommand = new DelegateCommand(OpenCategoriesWindowCommandExecute);
     }
     public DelegateCommand OpenCategoriesWindowCommand { get; }
