@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NHibernate;
@@ -20,17 +21,17 @@ namespace StoreWPFDXApp.Models.Repositories {
       }
     }
 
-    public async Task<int> AddAsync(Categories entity) {
+    public async Task<Guid> AddAsync(Categories entity) {
       using (var tx = _session.BeginTransaction()) {
         await _session.SaveAsync(entity);
         tx.Commit();
-        return entity.ID;
+        return entity.UuId;
       }
     }
 
     public async Task UpdateAsync(Categories entity) {
       using (var tx = _session.BeginTransaction()) {
-        var category = _session.Get<Categories>(entity.ID);
+        var category = _session.Get<Categories>(entity.UuId);
         if (category.Name != entity.Name) {
           category.Name = entity.Name;
         }
@@ -45,20 +46,20 @@ namespace StoreWPFDXApp.Models.Repositories {
       }
     }
 
-    public async Task UpdateParentAsync(int entityId, int parentId) {
+    public async Task UpdateParentAsync(Guid entityUuId, Guid parentUuId) {
       using (var tx = _session.BeginTransaction()) {
-        var category = _session.Get<Categories>(entityId);
-        category.ParentID = parentId;
+        var category = _session.Get<Categories>(entityUuId);
+        category.ParentUuId = parentUuId;
         await _session.UpdateAsync(category);
         tx.Commit();
       }
     }
 
-    public async Task DeleteAsync(IEnumerable<int> iDs) {
+    public async Task DeleteAsync(IEnumerable<Guid> uuIds) {
       using (var tx = _session.BeginTransaction()) {
         var categories = await _session.QueryOver<Categories>()
-          .WhereRestrictionOn(val => val.ID)
-          .IsIn(iDs.ToArray())
+          .WhereRestrictionOn(val => val.UuId)
+          .IsIn(uuIds.ToArray())
           .ListAsync();
 
         foreach (var category in categories) {
@@ -70,8 +71,8 @@ namespace StoreWPFDXApp.Models.Repositories {
       }
     }
 
-    public Task DeleteAsync(int id) {
-      throw new System.NotImplementedException();
+    public Task DeleteAsync(Guid uuId) {
+      throw new NotImplementedException();
     }
   }
 }

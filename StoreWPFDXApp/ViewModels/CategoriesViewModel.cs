@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -9,7 +10,7 @@ using StoreWPFDXApp.ViewModels.Services.Abstract;
 namespace StoreWPFDXApp.ViewModels {
   public class CategoriesViewModel : ViewModelBase {
     private readonly ICategoriesService _categoriesService;
-    private List<int> _actualUndeletedCategoriesIds;
+    private List<Guid> _actualUndeletedCategoriesUuIds;
 
     public CategoriesViewModel(ICategoriesService categoriesService) {
       _categoriesService = categoriesService;
@@ -20,7 +21,7 @@ namespace StoreWPFDXApp.ViewModels {
         Categories.Add(vm);
       }
       Categories.CollectionChanged += Categories_CollectionChanged;
-      _actualUndeletedCategoriesIds = Categories.Select(x => x.ID).ToList();
+      _actualUndeletedCategoriesUuIds = Categories.Select(x => x.UuId).ToList();
 
       DeleteSelectedItemCommand = new AsyncCommand(DeleteSelectedItemCommandExecuteAsync);
     }
@@ -30,10 +31,10 @@ namespace StoreWPFDXApp.ViewModels {
 
     public AsyncCommand DeleteSelectedItemCommand { get; }
     async Task DeleteSelectedItemCommandExecuteAsync() {
-      var updatedUndeletedCategoriesIds = Categories.Select(x => x.ID).ToList();
-      var iDsToDelete = _actualUndeletedCategoriesIds.Except(updatedUndeletedCategoriesIds);
-      _actualUndeletedCategoriesIds = updatedUndeletedCategoriesIds;
-      await _categoriesService.DeleteAsync(iDsToDelete);
+      var updatedUndeletedCategoriesUuIds = Categories.Select(x => x.UuId).ToList();
+      var uuIdsToDelete = _actualUndeletedCategoriesUuIds.Except(updatedUndeletedCategoriesUuIds);
+      _actualUndeletedCategoriesUuIds = updatedUndeletedCategoriesUuIds;
+      await _categoriesService.DeleteAsync(uuIdsToDelete);
     }
 
     void Categories_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {

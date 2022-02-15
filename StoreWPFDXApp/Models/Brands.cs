@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace StoreWPFDXApp.Models {
   public class Brands {
-    public virtual int ID { get; set; }
+    public virtual Guid UuId { get; set; }
     public virtual string Name { get; set; }
     public virtual bool IsDeleted { get; set; }
 

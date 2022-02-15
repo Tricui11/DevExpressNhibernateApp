@@ -1,4 +1,5 @@
-﻿using StoreWPFDXApp.Models;
+﻿using System;
+using StoreWPFDXApp.Models;
 
 namespace StoreWPFDXApp.ViewModels {
   public class BrandGridItemViewModel {
@@ -12,7 +13,7 @@ namespace StoreWPFDXApp.ViewModels {
       _model = model;
     }
 
-    public int ID => _model.ID;
+    public Guid UuId => _model.UuId;
     public string Name {
       get => _model.Name;
       set => _model.Name = value;

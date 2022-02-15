@@ -34,18 +34,18 @@
                                DataSourceRefreshCommand="{Binding DataSourceRefreshCommand}" />
             </dxg:GridControl.View>
             <dxg:GridControl.ItemsSource>
-                <dx:InfiniteAsyncSource ElementType="ViewModels:ProductGridItemViewModel" KeyProperty="Id" FetchRowsCommand="{Binding FetchRowsCommand}" />
+                <dx:InfiniteAsyncSource ElementType="ViewModels:ProductGridItemViewModel" KeyProperty="UuId" FetchRowsCommand="{Binding FetchRowsCommand}" />
             </dxg:GridControl.ItemsSource>
             <dxg:GridColumn FieldName="Name" IsSmart="True" AllowEditing="True" Header="Наименование" Width="150"/>
             <dxg:GridColumn FieldName="Article" IsSmart="True" AllowEditing="True" Header="Артикул" Width="100"/>
-            <dxg:GridColumn FieldName="CategoryID" IsSmart="True" AllowEditing="True" Header="Категория" Width="150">
+            <dxg:GridColumn FieldName="CategoryUuId" IsSmart="True" AllowEditing="True" Header="Категория" Width="150">
                 <dxg:GridColumn.EditSettings>
-                    <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="ID" ItemsSource="{Binding Categories}" />
+                    <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="UuId" ItemsSource="{Binding Categories}" />
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="BrandID" IsSmart="True" AllowEditing="True" Header="Торговая марка" Width="100">
+            <dxg:GridColumn FieldName="BrandUuId" IsSmart="True" AllowEditing="True" Header="Торговая марка" Width="100">
                 <dxg:GridColumn.EditSettings>
-                    <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="ID" ItemsSource="{Binding Brands}" />
+                    <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="UuId" ItemsSource="{Binding Brands}" />
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
             <dxg:GridColumn FieldName="Description" IsSmart="True" AllowEditing="True" Header="Описание" Width="205"/>

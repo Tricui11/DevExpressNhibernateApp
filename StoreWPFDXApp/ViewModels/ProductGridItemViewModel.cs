@@ -1,4 +1,5 @@
-﻿using StoreWPFDXApp.Models;
+﻿using System;
+using StoreWPFDXApp.Models;
 
 namespace StoreWPFDXApp.ViewModels {
   public class ProductGridItemViewModel {
@@ -14,7 +15,7 @@ namespace StoreWPFDXApp.ViewModels {
       _model = model;
     }
 
-    public int ID => _model.ID;
+    public Guid UuId => _model.UuId;
     public string Name {
       get => _model.Name;
       set => _model.Name = value;
@@ -31,13 +32,13 @@ namespace StoreWPFDXApp.ViewModels {
       get => _model.Price;
       set => _model.Price = value;
     }
-    public int BrandID {
-      get => _model.BrandID;
-      set => _model.BrandID = value;
+    public Guid BrandUuId {
+      get => _model.BrandUuId;
+      set => _model.BrandUuId = value;
     }
-    public int CategoryID {
-      get => _model.CategoryID;
-      set => _model.CategoryID = value;
+    public Guid CategoryUuId {
+      get => _model.CategoryUuId;
+      set => _model.CategoryUuId = value;
     }
 
     public Products GetModel() => _model;

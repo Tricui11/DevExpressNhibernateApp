@@ -15,8 +15,8 @@
         <dxg:TreeListControl ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
             <dxg:TreeListControl.View>
                 <dxg:TreeListView x:Name="tlView"
-                                  KeyFieldName="ID"
-                                  ParentFieldName="ParentID"
+                                  KeyFieldName="UuId"
+                                  ParentFieldName="ParentUuId"
                                   AllowPerPixelScrolling="True"
                                   AutoExpandAllNodes="True"
                                   TreeColumnFieldName="Name"

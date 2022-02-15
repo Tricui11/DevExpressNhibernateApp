@@ -30,7 +30,7 @@
                                ValidateRowCommand="{Binding ValidateRowAsyncCommand}" ValidateRowDeletionCommand="{Binding ValidateRowDeletionAsyncCommand}"/>
             </dxg:GridControl.View>
             <dxg:GridControl.ItemsSource>
-                <dx:InfiniteAsyncSource ElementType="ViewModels:BrandGridItemViewModel" KeyProperty="Id" FetchRowsCommand="{Binding FetchRowsCommand}" />
+                <dx:InfiniteAsyncSource ElementType="ViewModels:BrandGridItemViewModel" KeyProperty="UuId" FetchRowsCommand="{Binding FetchRowsCommand}" />
             </dxg:GridControl.ItemsSource>
             <dxg:GridColumn FieldName="Name" Header="Наименование" HorizontalHeaderContentAlignment="Center" IsSmart="True" AllowEditing="True" Width="265" />
             <dxg:GridControl.InputBindings>

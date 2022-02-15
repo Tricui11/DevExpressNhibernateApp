@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Categories = StoreWPFDXApp.Models.Categories;
 
 namespace StoreWPFDXApp.ViewModels.Services.Abstract {
   public interface ICategoriesService {
     Task<IEnumerable<Categories>> GetAllAsync();
-    Task<int> CreateAsync(Categories model);
+    Task<Guid> CreateAsync(Categories model);
     Task UpdateAsync(Categories model);
-    Task UpdateParentAsync(int entityId, int parentId);
-    Task DeleteAsync(IEnumerable<int> iDs);
+    Task UpdateParentAsync(Guid entityUuId, Guid parentUuId);
+    Task DeleteAsync(IEnumerable<Guid> uuIds);
   }
 }

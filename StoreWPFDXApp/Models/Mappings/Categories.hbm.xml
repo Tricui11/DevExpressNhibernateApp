@@ -4,18 +4,18 @@
    assembly = "StoreWPFDXApp" namespace = "StoreWPFDXApp.Models">
 
   <class name = "Categories">
-    <id name = "ID">
-      <generator class = "native"/>
+    <id name = "UuId" type="guid">
+      <generator class = "guid.comb"/>
     </id>
 
-    <property name = "ParentID"/>
+    <property name = "ParentUuId"/>
     <property name = "Name"/>
     <property name = "Description"/>
     <property name = "KeyWords"/>
     <property name = "IsDeleted"/>
 
     <bag name="Products" inverse="true">
-      <key column="ID"/>
+      <key column="UuId"/>
       <one-to-many class="Products"/>
     </bag>
   </class>

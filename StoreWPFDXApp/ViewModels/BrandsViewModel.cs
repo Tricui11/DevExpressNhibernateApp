@@ -44,9 +44,9 @@ namespace StoreWPFDXApp.ViewModels {
     public async Task ValidateRowAsync(RowValidationArgs args) {
       var brandVM = (BrandGridItemViewModel)args.Item;
       var brand = brandVM.GetModel();
-      if (brand.ID == 0) {
-        var createdId = await _brandsService.CreateAsync(brand);
-        brand.ID = createdId;
+      if (brand.UuId == default(Guid)) {
+        var createdUuId = await _brandsService.CreateAsync(brand);
+        brand.UuId = createdUuId;
       } else {
         await _brandsService.UpdateAsync(brand);
       }
@@ -54,7 +54,7 @@ namespace StoreWPFDXApp.ViewModels {
     [Command]
     public async Task ValidateRowDeletionAsync(ValidateRowDeletionArgs args) {
       var brandVM = (BrandGridItemViewModel)args.Items.Single();
-      await _brandsService.DeleteAsync(brandVM.ID);
+      await _brandsService.DeleteAsync(brandVM.UuId);
     }
   }
 }

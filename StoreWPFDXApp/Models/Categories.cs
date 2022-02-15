@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace StoreWPFDXApp.Models {
   public class Categories {
-    public virtual int ID { get; set; }
-    public virtual int ParentID { get; set; }
+    public virtual Guid UuId { get; set; }
+    public virtual Guid ParentUuId { get; set; }
     public virtual string Name { get; set; }
     public virtual string Description { get; set; }
     public virtual string KeyWords { get; set; }

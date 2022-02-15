@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using StoreWPFDXApp.Models;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
@@ -18,14 +19,14 @@ namespace StoreWPFDXApp.ViewModels {
 
     public ICategoriesService CategoriesService { get; set; }
 
-    public int ID => _model.ID;
-    public int ParentID {
-      get => _model.ParentID;
+    public Guid UuId => _model.UuId;
+    public Guid ParentUuId {
+      get => _model.ParentUuId;
       set {
-        if (_model.ID != 0) {
-          Task.Run(async () => await CategoriesService.UpdateParentAsync(_model.ID, value));
+        if (_model.UuId != default(Guid)) {
+          Task.Run(async () => await CategoriesService.UpdateParentAsync(_model.UuId, value));
         }
-        _model.ParentID = value;
+        _model.ParentUuId = value;
       }
     }
     public string Name {
@@ -48,9 +49,9 @@ namespace StoreWPFDXApp.ViewModels {
     void IEditableObject.EndEdit() {
       if (IsUpdated) { return; }
       IsUpdated = true;
-      if (_model.ID == 0) {
-        var newID = Task.Run(async () => await CategoriesService.CreateAsync(_model)).Result;
-        _model.ID = newID;
+      if (_model.UuId == default(Guid)) {
+        var newUuId = Task.Run(async () => await CategoriesService.CreateAsync(_model)).Result;
+        _model.UuId = newUuId;
       } else {
         Task.Run(async () => await CategoriesService.UpdateAsync(_model));
       }

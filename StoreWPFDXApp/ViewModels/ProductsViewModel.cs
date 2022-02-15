@@ -28,13 +28,13 @@ namespace StoreWPFDXApp.ViewModels {
       args.Result = Task.Run<FetchRowsResult>(() => {
         using (var tx = _session.BeginTransaction()) {
           var query = _session.Query<Products>()
-              .SortBy(args.SortOrder, defaultUniqueSortPropertyName: nameof(ProductGridItemViewModel.ID))
+              .SortBy(args.SortOrder, defaultUniqueSortPropertyName: nameof(ProductGridItemViewModel.UuId))
               .Where(MakeFilterExpression((CriteriaOperator)args.Filter));
           var products = query.Skip(args.Skip).Take(args.Take ?? 100).ToArray();
           tx.Commit();
           foreach (var product in products) {
-            product.BrandID = product.Brands.ID;
-            product.CategoryID = product.Categories.ID;
+            product.BrandUuId = product.Brands.UuId;
+            product.CategoryUuId = product.Categories.UuId;
           }
           var vms = products.Select(x => new ProductGridItemViewModel(x)).ToArray();
           return vms;
@@ -50,11 +50,11 @@ namespace StoreWPFDXApp.ViewModels {
     public async Task ValidateRowAsync(RowValidationArgs args) {
       var productVM = (ProductGridItemViewModel)args.Item;
       var product = productVM.GetModel();
-      product.Brands = Brands.First(x => x.ID == product.BrandID);
-      product.Categories = Categories.First(x => x.ID == product.CategoryID);
-      if (product.ID == 0) {
-        var createdId = await _productsService.CreateAsync(product);
-        product.ID = createdId;
+      product.Brands = Brands.First(x => x.UuId == product.BrandUuId);
+      product.Categories = Categories.First(x => x.UuId == product.CategoryUuId);
+      if (product.UuId == default(Guid)) {
+        var createdUuId = await _productsService.CreateAsync(product);
+        product.UuId = createdUuId;
       } else {
         await _productsService.UpdateAsync(product);
       }
@@ -62,7 +62,7 @@ namespace StoreWPFDXApp.ViewModels {
     [Command]
     public async Task ValidateRowDeletionAsync(ValidateRowDeletionArgs args) {
       var product = (ProductGridItemViewModel)args.Items.Single();
-      await _productsService.DeleteAsync(product.ID);
+      await _productsService.DeleteAsync(product.UuId);
     }
 
     ICollection<Brands> _brands;

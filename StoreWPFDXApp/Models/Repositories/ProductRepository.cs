@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using NHibernate;
 using StoreWPFDXApp.Models.Repositories.Abstract;
@@ -11,17 +12,17 @@ namespace StoreWPFDXApp.Models.Repositories {
       _session = session;
     }
 
-    public async Task<int> AddAsync(Products entity) {
+    public async Task<Guid> AddAsync(Products entity) {
       using (var tx = _session.BeginTransaction()) {
         await _session.SaveAsync(entity);
         tx.Commit();
-        return entity.ID;
+        return entity.UuId;
       }
     }
 
-    public async Task DeleteAsync(int id) {
+    public async Task DeleteAsync(Guid uuId) {
       using (var tx = _session.BeginTransaction()) {
-        var product = _session.Get<Products>(id);
+        var product = _session.Get<Products>(uuId);
         await _session.DeleteAsync(product);
         tx.Commit();
       }

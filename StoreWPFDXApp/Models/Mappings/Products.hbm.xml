@@ -4,8 +4,8 @@
    assembly = "StoreWPFDXApp" namespace = "StoreWPFDXApp.Models">
 
   <class name = "Products">
-    <id name = "ID">
-      <generator class = "native"/>
+    <id name = "UuId" type="guid">
+      <generator class = "guid.comb"/>
     </id>
 
     <property name = "Name"/>
@@ -13,8 +13,8 @@
     <property name = "Description"/>
     <property name = "Price"/>
 
-    <many-to-one name="Brands" class="Brands" column="BrandID" cascade = "None"/>
-    <many-to-one name="Categories" class="Categories" column="CategoryID" cascade = "None"/>
+    <many-to-one name="Brands" class="Brands" column="BrandUuId" cascade = "None"/>
+    <many-to-one name="Categories" class="Categories" column="CategoryUuId" cascade = "None"/>
   </class>
 
 </hibernate-mapping>
