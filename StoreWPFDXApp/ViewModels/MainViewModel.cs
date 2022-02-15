@@ -11,20 +11,20 @@ namespace StoreWPFDXApp.ViewModels {
     public DelegateCommand OpenCategoriesWindowCommand { get; }
     public DelegateCommand OpenBrandsWindowCommand { get; }
     public DelegateCommand OpenProductsWindowCommand { get; }
-    
+
     void OpenCategoriesWindowCommandExecute() {
       var win = new CategoriesView();
-      win.Show();
+      win.ShowDialog();
     }
 
     void OpenBrandsWindowCommandExecute() {
       var win = new BrandsView();
-      win.Show();
+      win.ShowDialog();
     }
 
     void OpenProductsWindowCommandExecute() {
       var win = new ProductsView();
-      win.Show();
+      win.ShowDialog();
     }
   }
 }

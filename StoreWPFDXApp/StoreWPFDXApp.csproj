@@ -116,7 +116,7 @@
     <Compile Include="Models\Repositories\Abstract\IProductRepository.cs" />
     <Compile Include="Models\Repositories\BrandRepository.cs" />
     <Compile Include="Models\Repositories\ProductRepository.cs" />
-    <Compile Include="ViewModels\BrandGridItemViewModel.cs" />
+    <Compile Include="ViewModels\ProductGridItemViewModel.cs" />
     <Compile Include="ViewModels\Services\Abstract\IProductsService.cs" />
     <Compile Include="ViewModels\Services\BrandsService.cs" />
     <Compile Include="ViewModels\Services\Abstract\IBrandsService.cs" />

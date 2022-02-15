@@ -14,46 +14,46 @@
         Title="Товары" mc:Ignorable="d" Height="450" Width="800"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">  
     <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <dxb:ToolBarControl>
-                <dxb:BarButtonItem Content="Refresh (F5)" Command="{Binding View.Commands.RefreshDataSource, ElementName=grid}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <dxb:ToolBarControl>
+            <dxb:BarButtonItem Content="Refresh (F5)" Command="{Binding View.Commands.RefreshDataSource, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Refresh.svg}" BarItemDisplayMode="ContentAndGlyph" />
-                <dxb:BarButtonItem Content="Edit (F2)" Command="{Binding View.Commands.EditFocusedRow, ElementName=grid}"
+            <dxb:BarButtonItem Content="Edit (F2)" Command="{Binding View.Commands.EditFocusedRow, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Edit.svg}" BarItemDisplayMode="ContentAndGlyph" />
-                <dxb:BarButtonItem Content="New" Command="{Binding View.Commands.AddNewRow, ElementName=grid}"
+            <dxb:BarButtonItem Content="New" Command="{Binding View.Commands.AddNewRow, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}" BarItemDisplayMode="ContentAndGlyph" />
-                <dxb:BarButtonItem Content="Delete (Del)" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}"
+            <dxb:BarButtonItem Content="Delete (Del)" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Delete.svg}" BarItemDisplayMode="ContentAndGlyph" />
-            </dxb:ToolBarControl>
-            <dxg:GridControl x:Name="grid" Grid.Row="1">
-                <dxg:GridControl.View>
-                    <dxg:TableView NewItemRowPosition="Top" ShowUpdateRowButtons="OnCellEditorOpen"
+        </dxb:ToolBarControl>
+        <dxg:GridControl x:Name="grid" Grid.Row="1">
+            <dxg:GridControl.View>
+                <dxg:TableView NewItemRowPosition="Top" ShowUpdateRowButtons="OnCellEditorOpen"
                                ValidateRowCommand="{Binding ValidateRowCommand}" ValidateRowDeletionCommand="{Binding ValidateRowDeletionCommand}"
                                ShowFixedTotalSummary="True" DataSourceRefreshCommand="{Binding DataSourceRefreshCommand}" />
-                </dxg:GridControl.View>
-                <dxg:GridControl.ItemsSource>
-                    <dx:InfiniteAsyncSource ElementType="local_products:Products" KeyProperty="Id"
-                                        FetchRowsCommand="{Binding FetchRowsCommand}" GetTotalSummariesCommand="{Binding GetTotalSummariesCommand}" />
-                </dxg:GridControl.ItemsSource>
-                <dxg:GridColumn FieldName="Id" IsSmart="True"
-                            AllowEditing="True" ReadOnly="True" />
-                <dxg:GridColumn FieldName="Name" IsSmart="True"
-                            AllowEditing="True" />
-                <dxg:GridColumn FieldName="BrandId" IsSmart="True"
-                            AllowEditing="True" Header="Brand">
-                    <dxg:GridColumn.EditSettings>
-                        <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="Id" ItemsSource="{Binding Brands}" />
-                    </dxg:GridColumn.EditSettings>
-                </dxg:GridColumn>
-                <dxg:GridControl.InputBindings>
+            </dxg:GridControl.View>
+            <dxg:GridControl.ItemsSource>
+                <dx:InfiniteAsyncSource ElementType="local_products:Products" KeyProperty="Id" FetchRowsCommand="{Binding FetchRowsCommand}" />
+            </dxg:GridControl.ItemsSource>
+            <dxg:GridColumn FieldName="Name" IsSmart="True" AllowEditing="True" Header="Наименование"/>
+            <dxg:GridColumn FieldName="Article" IsSmart="True" AllowEditing="True" Header="Артикул"/>
+            <dxg:GridColumn FieldName="Brands.ID" IsSmart="True" AllowEditing="True" Header="Торговая марка">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="ID" ItemsSource="{Binding Brands}" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="Categories.ID" IsSmart="True" AllowEditing="True" Header="Категория">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="ID" ItemsSource="{Binding Categories}" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="Description" IsSmart="True" AllowEditing="True" Header="Описание"/>
+            <dxg:GridColumn FieldName="Price" IsSmart="True" AllowEditing="True" Header="Цена"/>
+            <dxg:GridControl.InputBindings>
                     <KeyBinding Key="Delete" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}" />
                 </dxg:GridControl.InputBindings>
-                <dxg:GridControl.TotalSummary>
-                    <dxg:GridSummaryItem SummaryType="Count" Alignment="Right" />
-                </dxg:GridControl.TotalSummary>
             </dxg:GridControl>
-        </Grid>
-    </Window>
+    </Grid>
+</Window>

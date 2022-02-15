@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
-using StoreWPFDXApp.Data;
+using StoreWPFDXApp.Models;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
 
 namespace StoreWPFDXApp.ViewModels {
@@ -51,8 +51,7 @@ namespace StoreWPFDXApp.ViewModels {
       if (_model.ID == 0) {
         var newID = Task.Run(async () => await CategoriesService.CreateAsync(_model)).Result;
         _model.ID = newID;
-      }
-      else {
+      } else {
         Task.Run(async () => await CategoriesService.UpdateAsync(_model));
       }
     }

@@ -1,7 +1,7 @@
 ﻿<?xml version = "1.0" encoding = "utf-8" ?>
 
 <hibernate-mapping xmlns = "urn:nhibernate-mapping-2.2"
-   assembly = "StoreWPFDXApp" namespace = "StoreWPFDXApp.Data">
+   assembly = "StoreWPFDXApp" namespace = "StoreWPFDXApp.Models">
 
   <class name = "Categories">
     <id name = "ID">
@@ -13,6 +13,11 @@
     <property name = "Description"/>
     <property name = "KeyWords"/>
     <property name = "IsDeleted"/>
+
+    <bag name="Products" inverse="true">
+      <key column="ID"/>
+      <one-to-many class="Products"/>
+    </bag>
   </class>
 
 </hibernate-mapping>

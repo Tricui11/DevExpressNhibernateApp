@@ -1,10 +1,10 @@
 ﻿using StoreWPFDXApp.Models;
 
 namespace StoreWPFDXApp.ViewModels {
-  public class BrandGridItemViewModel {
-    private readonly Brands _model;
+  public class ProductGridItemViewModel {
+    private readonly Products _model;
 
-    public BrandGridItemViewModel(Brands model) {
+    public ProductGridItemViewModel(Products model) {
       _model = model;
     }
 

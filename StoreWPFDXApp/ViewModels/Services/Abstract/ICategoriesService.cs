@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Categories = StoreWPFDXApp.Data.Categories;
+using Categories = StoreWPFDXApp.Models.Categories;
 
 namespace StoreWPFDXApp.ViewModels.Services.Abstract {
   public interface ICategoriesService {

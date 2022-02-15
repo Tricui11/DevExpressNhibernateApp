@@ -11,9 +11,7 @@
         DataContext="{common:DISource Type=ViewModels:CategoriesViewModel}"
         mc:Ignorable="d" Height="400" Width="600"
         Title="Категории" WindowStartupLocation="CenterScreen">
-
-    <DockPanel>
-        
+    <DockPanel>        
         <dxg:TreeListControl ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
             <dxg:TreeListControl.View>
                 <dxg:TreeListView x:Name="tlView"
@@ -34,16 +32,13 @@
                     </dxg:TreeListView.FormatConditions>
                     <dxg:TreeListView.RowCellMenuCustomizations>
                         <dxb:BarButtonItem Glyph="{dx:DXImage Image=Delete_16x16.png}" Content="Удалить" 
-                                           ItemClick="DeleteNodeClick"
-                                           Command="{Binding View.DataContext.DeleteSelectedItemCommand}"/>
+                                           ItemClick="DeleteNodeClick" Command="{Binding View.DataContext.DeleteSelectedItemCommand}"/>
                     </dxg:TreeListView.RowCellMenuCustomizations>
                 </dxg:TreeListView>
             </dxg:TreeListControl.View>
             <dxg:TreeListColumn FieldName="Name" Header="Наименование" Width="*" />
             <dxg:TreeListColumn FieldName="Description" Header="Описание" Width="100" />
             <dxg:TreeListColumn FieldName="KeyWords" Header="Ключевые слова" Width="100" />
-        </dxg:TreeListControl>
-        
+        </dxg:TreeListControl>        
     </DockPanel>
-
 </Window>

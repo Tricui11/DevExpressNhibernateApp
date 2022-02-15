@@ -9,8 +9,12 @@
     </id>
 
     <property name = "Name"/>
+    <property name = "Article"/>
+    <property name = "Description"/>
+    <property name = "Price"/>
 
     <many-to-one name="Brands" class="Brands" column="BrandID" cascade = "save-update"/>
+    <many-to-one name="Categories" class="Categories" column="CategoryID" cascade = "save-update"/>
   </class>
 
 </hibernate-mapping>

@@ -1,8 +1,13 @@
 use StoreDB
 CREATE TABLE [Products] (
 	[ID] INT IDENTITY (1, 1) NOT NULL,
-	[Name] NVARCHAR (MAX) NULL,
-	[BrandID] INT NULL
+	[Name] NVARCHAR (MAX) NOT NULL,
+	[Article] NVARCHAR (MAX) NULL,
+	[BrandID] INT NULL,
+	[CategoryID] INT NULL,
+	[Description] NVARCHAR (MAX) NULL,
+	[Price] DECIMAL NULL,
 	CONSTRAINT [PK_dbo.Products] PRIMARY KEY CLUSTERED ([ID] ASC),
-	FOREIGN KEY (BrandID) REFERENCES Brands (ID)
+	FOREIGN KEY (BrandID) REFERENCES Brands (ID),
+	FOREIGN KEY (CategoryID) REFERENCES Categories (ID)
 );

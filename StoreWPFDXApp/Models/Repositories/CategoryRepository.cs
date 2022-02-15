@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using NHibernate;
-using StoreWPFDXApp.Data;
 using StoreWPFDXApp.Models.Repositories.Abstract;
 
 namespace StoreWPFDXApp.Models.Repositories {

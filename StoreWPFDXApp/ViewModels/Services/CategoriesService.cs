@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using StoreWPFDXApp.Models.Repositories.Abstract;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
-using Categories = StoreWPFDXApp.Data.Categories;
+using Categories = StoreWPFDXApp.Models.Categories;
 
 namespace StoreWPFDXApp.ViewModels.Services {
   class CategoriesService : ICategoriesService {
