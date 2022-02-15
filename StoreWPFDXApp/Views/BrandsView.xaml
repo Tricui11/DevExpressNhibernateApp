@@ -17,11 +17,11 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <dxb:ToolBarControl>
-            <dxb:BarButtonItem Content="Edit (F2)" Command="{Binding View.Commands.EditFocusedRow, ElementName=grid}"
+            <dxb:BarButtonItem Content="Редактировать" Command="{Binding View.Commands.EditFocusedRow, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Edit.svg}" BarItemDisplayMode="ContentAndGlyph" />
-            <dxb:BarButtonItem Content="New" Command="{Binding View.Commands.AddNewRow, ElementName=grid}"
+            <dxb:BarButtonItem Content="Создать" Command="{Binding View.Commands.AddNewRow, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}" BarItemDisplayMode="ContentAndGlyph" />
-            <dxb:BarButtonItem Content="Delete (Del)" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}"
+            <dxb:BarButtonItem Content="Удалить" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Delete.svg}" BarItemDisplayMode="ContentAndGlyph" />
         </dxb:ToolBarControl>
         <dxg:GridControl x:Name="grid" Grid.Row="1" Width="300">

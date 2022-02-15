@@ -18,13 +18,13 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <dxb:ToolBarControl>
-            <dxb:BarButtonItem Content="Refresh (F5)" Command="{Binding View.Commands.RefreshDataSource, ElementName=grid}"
+            <dxb:BarButtonItem Content="Обновить" Command="{Binding View.Commands.RefreshDataSource, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Refresh.svg}" BarItemDisplayMode="ContentAndGlyph" />
-            <dxb:BarButtonItem Content="Edit (F2)" Command="{Binding View.Commands.EditFocusedRow, ElementName=grid}"
+            <dxb:BarButtonItem Content="Редактировать" Command="{Binding View.Commands.EditFocusedRow, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Edit.svg}" BarItemDisplayMode="ContentAndGlyph" />
-            <dxb:BarButtonItem Content="New" Command="{Binding View.Commands.AddNewRow, ElementName=grid}"
+            <dxb:BarButtonItem Content="Создать" Command="{Binding View.Commands.AddNewRow, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}" BarItemDisplayMode="ContentAndGlyph" />
-            <dxb:BarButtonItem Content="Delete (Del)" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}"
+            <dxb:BarButtonItem Content="Удалить" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}"
                                Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Delete.svg}" BarItemDisplayMode="ContentAndGlyph" />
         </dxb:ToolBarControl>
         <dxg:GridControl x:Name="grid" Grid.Row="1">
@@ -36,6 +36,17 @@
             <dxg:GridControl.ItemsSource>
                 <dx:InfiniteAsyncSource ElementType="ViewModels:ProductGridItemViewModel" KeyProperty="UuId" FetchRowsCommand="{Binding FetchRowsCommand}" />
             </dxg:GridControl.ItemsSource>
+            <dxg:GridColumn FieldName="Image" IsSmart="True" AllowEditing="False" Header="Фото" Width="150">
+                <dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <dxe:ImageEdit x:Name="PART_Editor" />
+                            <Button Content="Выбрать" Command="{Binding View.DataContext.SetImageAsyncCommand}"
+                                    CommandParameter="{Binding RowData.Row}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
             <dxg:GridColumn FieldName="Name" IsSmart="True" AllowEditing="True" Header="Наименование" Width="150"/>
             <dxg:GridColumn FieldName="Article" IsSmart="True" AllowEditing="True" Header="Артикул" Width="100"/>
             <dxg:GridColumn FieldName="CategoryUuId" IsSmart="True" AllowEditing="True" Header="Категория" Width="150">
@@ -56,3 +67,26 @@
         </dxg:GridControl>
     </Grid>
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+<!--<dxg:GridColumn FieldName="Image" IsSmart="True" AllowEditing="False" Header="Фото" Width="150">
+    <dxg:GridColumn.CellTemplate>
+        <DataTemplate>
+            <StackPanel>
+                <Button Content="Выбрать" Margin="2" Visibility="{Binding HasImage, Mode=TwoWay}"
+                                    Command="{Binding View.DataContext.SetImageAsyncCommand}"
+                                    CommandParameter="{Binding RowData.Row}"/>
+                <dxe:ImageEdit x:Name="PART_Editor" />
+            </StackPanel>
+        </DataTemplate>
+    </dxg:GridColumn.CellTemplate>
+</dxg:GridColumn>-->

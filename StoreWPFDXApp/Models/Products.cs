@@ -4,6 +4,7 @@ namespace StoreWPFDXApp.Models {
   public class Products {
     public virtual Guid UuId { get; set; }
     public virtual string Name { get; set; }
+    public virtual byte[] ImageData { get; set; }
     public virtual string Article { get; set; }
     public virtual string Description { get; set; }
     public virtual decimal? Price { get; set; }

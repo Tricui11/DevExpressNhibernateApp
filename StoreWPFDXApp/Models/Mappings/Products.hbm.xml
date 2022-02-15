@@ -9,6 +9,7 @@
     </id>
 
     <property name = "Name"/>
+    <property name = "ImageData" length = "2147483647"/>
     <property name = "Article"/>
     <property name = "Description"/>
     <property name = "Price"/>

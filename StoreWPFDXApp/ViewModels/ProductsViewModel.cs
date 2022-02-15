@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Windows;
 using DevExpress.Data.Filtering;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.DataAnnotations;
@@ -10,6 +12,7 @@ using DevExpress.Mvvm.Xpf;
 using DevExpress.Xpf.Data;
 using NHibernate;
 using NHibernate.Util;
+using StoreWPFDXApp.Common;
 using StoreWPFDXApp.Models;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
 
@@ -95,6 +98,25 @@ namespace StoreWPFDXApp.ViewModels {
     public void DataSourceRefresh(DataSourceRefreshArgs args) {
       _brands = null;
       RaisePropertyChanged(nameof(Brands));
+    }
+
+    [Command]
+    public async Task SetImageAsync(object param) {
+      var productVM = param as ProductGridItemViewModel;
+      var imagePath = BitmapImageHelper.OpenImageFromFileAndReturnPath();
+      if (string.IsNullOrEmpty(imagePath)) {
+        return;
+      }
+
+      try {
+        var imageData = File.ReadAllBytes(imagePath);
+        productVM.ImageData = imageData;
+        var product = productVM.GetModel();
+        await _productsService.UpdateAsync(product);
+      }
+      catch (Exception ex) {
+        MessageBox.Show(ex.ToString());
+      }
     }
   }
 }

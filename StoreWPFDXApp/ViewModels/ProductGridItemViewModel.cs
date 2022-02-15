@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Windows.Media.Imaging;
+using DevExpress.Mvvm;
+using StoreWPFDXApp.Common;
 using StoreWPFDXApp.Models;
 
 namespace StoreWPFDXApp.ViewModels {
-  public class ProductGridItemViewModel {
+  public class ProductGridItemViewModel : ViewModelBase {
     private readonly Products _model;
 
     public ProductGridItemViewModel() {
@@ -40,6 +43,17 @@ namespace StoreWPFDXApp.ViewModels {
       get => _model.CategoryUuId;
       set => _model.CategoryUuId = value;
     }
+    public byte[] ImageData {
+      get => _model.ImageData;
+      set {
+        _model.ImageData = value;
+        RaisePropertiesChanged();
+      }
+    }
+
+    public bool HasImage => _model.ImageData != null;
+
+    public BitmapImage Image => HasImage ? BitmapImageHelper.GetFromByteArray(_model.ImageData) : null;
 
     public Products GetModel() => _model;
   }

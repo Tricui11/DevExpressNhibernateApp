@@ -115,6 +115,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\BitmapImageHelper.cs" />
     <Compile Include="Models\Repositories\Abstract\IBrandRepository.cs" />
     <Compile Include="Models\Repositories\Abstract\IProductRepository.cs" />
     <Compile Include="Models\Repositories\BrandRepository.cs" />
