@@ -1,75 +1,52 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using DevExpress.Mvvm;
 using DevExpress.Xpf.Data;
 using NHibernate;
 using StoreWPFDXApp.Models;
+using StoreWPFDXApp.ViewModels.Services.Abstract;
 
 namespace StoreWPFDXApp.ViewModels {
   public class BrandsViewModel : ViewModelBase {
-
-
-
     private readonly ISession _session;
+    private readonly IBrandsService _brandsService;
 
-
-    public BrandsViewModel(ISession session) {
+    public BrandsViewModel(ISession session, IBrandsService brandsService) {
       _session = session;
-
+      _brandsService = brandsService;
     }
-
-
-
 
     [DevExpress.Mvvm.DataAnnotations.Command]
     public void FetchRows(DevExpress.Mvvm.Xpf.FetchRowsAsyncArgs args) {
-
-
-
-
-      using (var tx = _session.BeginTransaction()) {
-        var brands = Task.Run(async () => await _session.CreateCriteria<Brands>().ListAsync<Brands>()).Result;
-        tx.Commit();
-        //   return brands.Where(x => !x.IsDeleted);
-      }
-
-
-
-
-
-
-
-
-
-      //args.Result = Task.Run<FetchRowsResult>(() => {
-      //  var context = new BrandsContext();
-      //  return context.Brands.AsNoTracking()
-      //      .SortBy(args.SortOrder, defaultUniqueSortPropertyName: nameof(Brands.Id))
-      //      .Where(MakeFilterExpression((DevExpress.Data.Filtering.CriteriaOperator)args.Filter)).ToArray();
-      //});
+      args.Result = Task.Run<FetchRowsResult>(() => {
+        using (var tx = _session.BeginTransaction()) {
+          var brands = _session.Query<Brands>().Where(x => !x.IsDeleted)
+          .SortBy(args.SortOrder, defaultUniqueSortPropertyName: nameof(Brands.Name))
+          .Where(MakeFilterExpression((DevExpress.Data.Filtering.CriteriaOperator)args.Filter)).ToArray();
+          tx.Commit();
+          return brands;
+        }
+      });
     }
-
     System.Linq.Expressions.Expression<System.Func<Brands, bool>> MakeFilterExpression(DevExpress.Data.Filtering.CriteriaOperator filter) {
       var converter = new GridFilterCriteriaToExpressionConverter<Brands>();
       return converter.Convert(filter);
     }
+
     [DevExpress.Mvvm.DataAnnotations.Command]
-    public void ValidateRow(DevExpress.Mvvm.Xpf.RowValidationArgs args) {
-      //var item = (Brands)args.Item;
-      //var context = new BrandsContext();
-      //context.Entry(item).State = args.IsNewItem ? EntityState.Added : EntityState.Modified;
-      //try {
-      //  context.SaveChanges();
-      //}
-      //finally {
-      //  context.Entry(item).State = EntityState.Detached;
-      //}
+    public async Task ValidateRowAsync(DevExpress.Mvvm.Xpf.RowValidationArgs args) {
+      var brand = (Brands)args.Item;
+      if (brand.ID == 0) {
+        var createdId = await _brandsService.CreateAsync(brand);
+        brand.ID = createdId;
+      } else {
+        await _brandsService.UpdateAsync(brand);
+      }
     }
     [DevExpress.Mvvm.DataAnnotations.Command]
-    public void ValidateRowDeletion(DevExpress.Mvvm.Xpf.ValidateRowDeletionArgs args) {
-      //var item = (Brands)args.Items.Single();
-      //var context = new BrandsContext();
-      //context.Entry(item).State = EntityState.Deleted;
-      //context.SaveChanges();
+    public async Task ValidateRowDeletionAsync(DevExpress.Mvvm.Xpf.ValidateRowDeletionArgs args) {
+      var brand = (Brands)args.Items.Single();
+      await _brandsService.DeleteAsync(brand.ID);
     }
   }
 }

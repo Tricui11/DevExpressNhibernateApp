@@ -40,6 +40,10 @@ namespace StoreWPFDXApp {
       builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
       builder.RegisterType<CategoriesService>().As<ICategoriesService>().InstancePerDependency();
       builder.RegisterType<CategoryRepository>().As<ICategoryRepository>().InstancePerDependency();
+      builder.RegisterType<BrandsService>().As<IBrandsService>().InstancePerDependency();
+      builder.RegisterType<BrandRepository>().As<IBrandRepository>().InstancePerDependency();
+      builder.RegisterType<ProductsService>().As<IProductsService>().InstancePerDependency();
+      builder.RegisterType<ProductRepository>().As<IProductRepository>().InstancePerDependency();
 
       RegisterNHibernate(builder);
 

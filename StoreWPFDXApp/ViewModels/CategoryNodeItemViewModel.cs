@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
+using StoreWPFDXApp.Data;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
 
-namespace StoreWPFDXApp.Data {
+namespace StoreWPFDXApp.ViewModels {
   public class CategoryNodeItemViewModel : IEditableObject {
     private readonly Categories _model;
 

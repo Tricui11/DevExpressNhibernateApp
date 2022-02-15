@@ -112,6 +112,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Repositories\Abstract\IBrandRepository.cs" />
+    <Compile Include="Models\Repositories\Abstract\IProductRepository.cs" />
+    <Compile Include="Models\Repositories\BrandRepository.cs" />
+    <Compile Include="Models\Repositories\ProductRepository.cs" />
+    <Compile Include="ViewModels\BrandGridItemViewModel.cs" />
+    <Compile Include="ViewModels\Services\Abstract\IProductsService.cs" />
+    <Compile Include="ViewModels\Services\BrandsService.cs" />
+    <Compile Include="ViewModels\Services\Abstract\IBrandsService.cs" />
+    <Compile Include="ViewModels\Services\ProductsService.cs" />
     <Compile Include="Views\ProductsView.xaml.cs">
       <DependentUpon>ProductsView.xaml</DependentUpon>
     </Compile>

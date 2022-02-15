@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using DevExpress.Mvvm;
-using StoreWPFDXApp.Data;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
 
 namespace StoreWPFDXApp.ViewModels {
