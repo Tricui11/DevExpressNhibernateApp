@@ -9,7 +9,7 @@
         xmlns:ViewModels="clr-namespace:StoreWPFDXApp.ViewModels"
         xmlns:common="clr-namespace:StoreWPFDXApp.Common"
         DataContext="{common:DISource Type=ViewModels:CategoriesViewModel}"
-        mc:Ignorable="d" Height="400" Width="600"
+        mc:Ignorable="d" Height="450" Width="700"
         Title="Категории" WindowStartupLocation="CenterScreen">
     <DockPanel>        
         <dxg:TreeListControl ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
@@ -21,6 +21,7 @@
                                   AutoExpandAllNodes="True"
                                   TreeColumnFieldName="Name"
                                   NewItemRowPosition="Bottom"
+                                  AutoWidth="True"
                                   NavigationStyle="Cell"
                                   AllowDragDrop="True"
                                   ShowDragDropHint="False"
@@ -36,9 +37,9 @@
                     </dxg:TreeListView.RowCellMenuCustomizations>
                 </dxg:TreeListView>
             </dxg:TreeListControl.View>
-            <dxg:TreeListColumn FieldName="Name" Header="Наименование" Width="*" />
-            <dxg:TreeListColumn FieldName="Description" Header="Описание" Width="100" />
-            <dxg:TreeListColumn FieldName="KeyWords" Header="Ключевые слова" Width="100" />
+            <dxg:TreeListColumn FieldName="Name" Header="Наименование" Width="150"/>
+            <dxg:TreeListColumn FieldName="Description" Header="Описание" Width="265" />
+            <dxg:TreeListColumn FieldName="KeyWords" Header="Ключевые слова" Width="170" />
         </dxg:TreeListControl>        
     </DockPanel>
 </Window>

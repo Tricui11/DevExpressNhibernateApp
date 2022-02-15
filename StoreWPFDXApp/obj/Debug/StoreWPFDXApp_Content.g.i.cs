@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("products.hbm.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("favicon.ico")]
 
 

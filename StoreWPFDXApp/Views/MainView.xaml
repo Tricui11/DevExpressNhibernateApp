@@ -10,7 +10,7 @@
         <ViewModels:MainViewModel/>
     </UserControl.DataContext>
     <StackPanel>
-        <Menu>
+        <Menu Background="AliceBlue">
             <MenuItem Header="Справочники">
                 <MenuItem Header="Категории" Command="{Binding OpenCategoriesWindowCommand}"/>
                 <MenuItem Header="Торговые марки" Command="{Binding OpenBrandsWindowCommand}"/>

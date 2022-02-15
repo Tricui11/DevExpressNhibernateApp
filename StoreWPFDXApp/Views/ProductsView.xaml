@@ -12,7 +12,7 @@
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         DataContext="{common:DISource Type=ViewModels:ProductsViewModel}"
         Title="Товары" mc:Ignorable="d" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">  
+        WindowStartupLocation="CenterScreen">  
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -30,30 +30,30 @@
         </dxb:ToolBarControl>
         <dxg:GridControl x:Name="grid" Grid.Row="1">
             <dxg:GridControl.View>
-                <dxg:TableView NewItemRowPosition="Top" ShowUpdateRowButtons="OnCellEditorOpen"
+                <dxg:TableView NewItemRowPosition="Top" ShowUpdateRowButtons="OnCellEditorOpen" VerticalScrollbarVisibility="Auto" AutoWidth="True"
                                ValidateRowCommand="{Binding ValidateRowCommand}" ValidateRowDeletionCommand="{Binding ValidateRowDeletionCommand}"
-                               ShowFixedTotalSummary="True" DataSourceRefreshCommand="{Binding DataSourceRefreshCommand}" />
+                               DataSourceRefreshCommand="{Binding DataSourceRefreshCommand}" />
             </dxg:GridControl.View>
             <dxg:GridControl.ItemsSource>
                 <dx:InfiniteAsyncSource ElementType="local_products:Products" KeyProperty="Id" FetchRowsCommand="{Binding FetchRowsCommand}" />
             </dxg:GridControl.ItemsSource>
-            <dxg:GridColumn FieldName="Name" IsSmart="True" AllowEditing="True" Header="Наименование"/>
-            <dxg:GridColumn FieldName="Article" IsSmart="True" AllowEditing="True" Header="Артикул"/>
-            <dxg:GridColumn FieldName="Brands.ID" IsSmart="True" AllowEditing="True" Header="Торговая марка">
-                <dxg:GridColumn.EditSettings>
-                    <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="ID" ItemsSource="{Binding Brands}" />
-                </dxg:GridColumn.EditSettings>
-            </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Categories.ID" IsSmart="True" AllowEditing="True" Header="Категория">
+            <dxg:GridColumn FieldName="Name" IsSmart="True" AllowEditing="True" Header="Наименование" Width="150"/>
+            <dxg:GridColumn FieldName="Article" IsSmart="True" AllowEditing="True" Header="Артикул" Width="100"/>
+            <dxg:GridColumn FieldName="Categories.ID" IsSmart="True" AllowEditing="True" Header="Категория" Width="150">
                 <dxg:GridColumn.EditSettings>
                     <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="ID" ItemsSource="{Binding Categories}" />
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Description" IsSmart="True" AllowEditing="True" Header="Описание"/>
-            <dxg:GridColumn FieldName="Price" IsSmart="True" AllowEditing="True" Header="Цена"/>
+            <dxg:GridColumn FieldName="Brands.ID" IsSmart="True" AllowEditing="True" Header="Торговая марка" Width="100">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="ID" ItemsSource="{Binding Brands}" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="Description" IsSmart="True" AllowEditing="True" Header="Описание" Width="205"/>
+            <dxg:GridColumn FieldName="Price" IsSmart="True" AllowEditing="True" Header="Цена" Width="43"/>
             <dxg:GridControl.InputBindings>
-                    <KeyBinding Key="Delete" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}" />
-                </dxg:GridControl.InputBindings>
-            </dxg:GridControl>
+                <KeyBinding Key="Delete" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}" />
+            </dxg:GridControl.InputBindings>
+        </dxg:GridControl>
     </Grid>
 </Window>

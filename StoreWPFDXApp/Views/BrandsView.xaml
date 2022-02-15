@@ -27,13 +27,13 @@
         </dxb:ToolBarControl>
         <dxg:GridControl x:Name="grid" Grid.Row="1" Width="300">
             <dxg:GridControl.View>
-                <dxg:TableView NewItemRowPosition="Top" ShowUpdateRowButtons="OnCellEditorOpen"
+                <dxg:TableView NewItemRowPosition="Top" ShowUpdateRowButtons="OnCellEditorOpen" AutoWidth="True"
                                ValidateRowCommand="{Binding ValidateRowAsyncCommand}" ValidateRowDeletionCommand="{Binding ValidateRowDeletionAsyncCommand}"/>
             </dxg:GridControl.View>
             <dxg:GridControl.ItemsSource>
                 <dx:InfiniteAsyncSource ElementType="local_brands:Brands" KeyProperty="Id" FetchRowsCommand="{Binding FetchRowsCommand}" />
             </dxg:GridControl.ItemsSource>
-            <dxg:GridColumn FieldName="Name" Header="Название" HorizontalHeaderContentAlignment="Center" IsSmart="True" AllowEditing="True" Width="265" />
+            <dxg:GridColumn FieldName="Name" Header="Наименование" HorizontalHeaderContentAlignment="Center" IsSmart="True" AllowEditing="True" Width="265" />
             <dxg:GridControl.InputBindings>
                 <KeyBinding Key="Delete" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}" />
             </dxg:GridControl.InputBindings>
