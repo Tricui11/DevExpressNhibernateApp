@@ -1,0 +1,42 @@
+﻿<Window x:Class="StoreWPFDXApp.Views.BrandsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local_brands="clr-namespace:StoreWPFDXApp.Models"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:common="clr-namespace:StoreWPFDXApp.Common"
+        xmlns:ViewModels="clr-namespace:StoreWPFDXApp.ViewModels"
+        DataContext="{common:DISource Type=ViewModels:BrandsViewModel}"
+        Title="Торговые марки" mc:Ignorable="d" Height="450" Width="315"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid Width="300">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <dxb:ToolBarControl>
+            <dxb:BarButtonItem Content="Edit (F2)" Command="{Binding View.Commands.EditFocusedRow, ElementName=grid}"
+                               Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Edit.svg}" BarItemDisplayMode="ContentAndGlyph" />
+            <dxb:BarButtonItem Content="New" Command="{Binding View.Commands.AddNewRow, ElementName=grid}"
+                               Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Add.svg}" BarItemDisplayMode="ContentAndGlyph" />
+            <dxb:BarButtonItem Content="Delete (Del)" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}"
+                               Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Delete.svg}" BarItemDisplayMode="ContentAndGlyph" />
+        </dxb:ToolBarControl>
+        <dxg:GridControl x:Name="grid" Grid.Row="1">
+            <dxg:GridControl.View>
+                <dxg:TableView NewItemRowPosition="Top" ShowUpdateRowButtons="OnCellEditorOpen"
+                               ValidateRowCommand="{Binding ValidateRowCommand}" ValidateRowDeletionCommand="{Binding ValidateRowDeletionCommand}"/>
+            </dxg:GridControl.View>
+            <dxg:GridControl.ItemsSource>
+                <dx:InfiniteAsyncSource ElementType="local_brands:Brands" KeyProperty="Id" FetchRowsCommand="{Binding FetchRowsCommand}" />
+            </dxg:GridControl.ItemsSource>
+            <dxg:GridColumn FieldName="Name" Header="Название" HorizontalHeaderContentAlignment="Center" IsSmart="True" AllowEditing="True" Width="300" />
+            <dxg:GridControl.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}" />
+            </dxg:GridControl.InputBindings>
+        </dxg:GridControl>
+    </Grid>
+</Window>

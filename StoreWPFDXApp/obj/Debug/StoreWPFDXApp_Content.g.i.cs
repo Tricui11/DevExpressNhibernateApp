@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("category.hbm.xml")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("xmlfile1.xml")]
 
 

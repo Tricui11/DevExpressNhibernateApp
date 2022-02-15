@@ -13,8 +13,8 @@
         <Menu>
             <MenuItem Header="Справочники">
                 <MenuItem Header="Категории" Command="{Binding OpenCategoriesWindowCommand}"/>
-                <MenuItem Header="Торговые марки"/>
-                <MenuItem Header="Товары"/>
+                <MenuItem Header="Торговые марки" Command="{Binding OpenBrandsWindowCommand}"/>
+                <MenuItem Header="Товары" Command="{Binding OpenProductsWindowCommand}"/>
             </MenuItem>
         </Menu>
     </StackPanel>
