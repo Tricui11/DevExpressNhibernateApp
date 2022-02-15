@@ -119,6 +119,7 @@
     <Compile Include="Models\Repositories\Abstract\IProductRepository.cs" />
     <Compile Include="Models\Repositories\BrandRepository.cs" />
     <Compile Include="Models\Repositories\ProductRepository.cs" />
+    <Compile Include="ViewModels\BrandGridItemViewModel.cs" />
     <Compile Include="ViewModels\ProductGridItemViewModel.cs" />
     <Compile Include="ViewModels\Services\Abstract\IProductsService.cs" />
     <Compile Include="ViewModels\Services\BrandsService.cs" />
@@ -207,17 +208,18 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Categories.hbm.xml" />
+    <EmbeddedResource Include="Models\Mappings\Categories.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Brands.hbm.xml" />
+    <EmbeddedResource Include="Models\Mappings\Brands.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Products.hbm.xml" />
+    <EmbeddedResource Include="Models\Mappings\Products.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="favicon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

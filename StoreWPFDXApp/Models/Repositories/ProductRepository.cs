@@ -11,20 +11,31 @@ namespace StoreWPFDXApp.Models.Repositories {
       _session = session;
     }
 
-    public Task<int> AddAsync(Products entity) {
-      throw new System.NotImplementedException();
+    public async Task<int> AddAsync(Products entity) {
+      using (var tx = _session.BeginTransaction()) {
+        await _session.SaveAsync(entity);
+        tx.Commit();
+        return entity.ID;
+      }
     }
 
-    public Task DeleteAsync(int id) {
-      throw new System.NotImplementedException();
+    public async Task DeleteAsync(int id) {
+      using (var tx = _session.BeginTransaction()) {
+        var product = _session.Get<Products>(id);
+        await _session.DeleteAsync(product);
+        tx.Commit();
+      }
     }
 
     public Task<IEnumerable<Products>> GetAllAsync() {
       throw new System.NotImplementedException();
     }
 
-    public Task UpdateAsync(Products entity) {
-      throw new System.NotImplementedException();
+    public async Task UpdateAsync(Products entity) {
+      using (var tx = _session.BeginTransaction()) {
+        await _session.UpdateAsync(entity);
+        tx.Commit();
+      }
     }
   }
 }

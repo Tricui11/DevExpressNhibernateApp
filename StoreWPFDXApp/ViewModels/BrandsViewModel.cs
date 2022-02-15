@@ -1,7 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DevExpress.Mvvm;
+using DevExpress.Mvvm.Xpf;
 using DevExpress.Xpf.Data;
+using DevExpress.Data.Filtering;
+using DevExpress.Mvvm.DataAnnotations;
 using NHibernate;
 using StoreWPFDXApp.Models;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
@@ -16,26 +21,29 @@ namespace StoreWPFDXApp.ViewModels {
       _brandsService = brandsService;
     }
 
-    [DevExpress.Mvvm.DataAnnotations.Command]
-    public void FetchRows(DevExpress.Mvvm.Xpf.FetchRowsAsyncArgs args) {
+    [Command]
+    public void FetchRows(FetchRowsAsyncArgs args) {
       args.Result = Task.Run<FetchRowsResult>(() => {
         using (var tx = _session.BeginTransaction()) {
-          var brands = _session.Query<Brands>().Where(x => !x.IsDeleted)
-          .SortBy(args.SortOrder, defaultUniqueSortPropertyName: nameof(Brands.Name))
-          .Where(MakeFilterExpression((DevExpress.Data.Filtering.CriteriaOperator)args.Filter)).ToArray();
+          var query = _session.Query<Brands>().Where(x => !x.IsDeleted)
+          .SortBy(args.SortOrder, defaultUniqueSortPropertyName: nameof(BrandGridItemViewModel.Name))
+          .Where(MakeFilterExpression((CriteriaOperator)args.Filter));
+          var brands = query.Skip(args.Skip).Take(args.Take ?? 100).ToArray();
           tx.Commit();
-          return brands;
+          var vms = brands.Select(x => new BrandGridItemViewModel(x)).ToArray();
+          return vms;
         }
       });
     }
-    System.Linq.Expressions.Expression<System.Func<Brands, bool>> MakeFilterExpression(DevExpress.Data.Filtering.CriteriaOperator filter) {
+    Expression<Func<Brands, bool>> MakeFilterExpression(CriteriaOperator filter) {
       var converter = new GridFilterCriteriaToExpressionConverter<Brands>();
       return converter.Convert(filter);
     }
 
-    [DevExpress.Mvvm.DataAnnotations.Command]
-    public async Task ValidateRowAsync(DevExpress.Mvvm.Xpf.RowValidationArgs args) {
-      var brand = (Brands)args.Item;
+    [Command]
+    public async Task ValidateRowAsync(RowValidationArgs args) {
+      var brandVM = (BrandGridItemViewModel)args.Item;
+      var brand = brandVM.GetModel();
       if (brand.ID == 0) {
         var createdId = await _brandsService.CreateAsync(brand);
         brand.ID = createdId;
@@ -43,10 +51,10 @@ namespace StoreWPFDXApp.ViewModels {
         await _brandsService.UpdateAsync(brand);
       }
     }
-    [DevExpress.Mvvm.DataAnnotations.Command]
-    public async Task ValidateRowDeletionAsync(DevExpress.Mvvm.Xpf.ValidateRowDeletionArgs args) {
-      var brand = (Brands)args.Items.Single();
-      await _brandsService.DeleteAsync(brand.ID);
+    [Command]
+    public async Task ValidateRowDeletionAsync(ValidateRowDeletionArgs args) {
+      var brandVM = (BrandGridItemViewModel)args.Items.Single();
+      await _brandsService.DeleteAsync(brandVM.ID);
     }
   }
 }

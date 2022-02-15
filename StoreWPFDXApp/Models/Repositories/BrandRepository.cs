@@ -34,9 +34,7 @@ namespace StoreWPFDXApp.Models.Repositories {
 
     public async Task UpdateAsync(Brands entity) {
       using (var tx = _session.BeginTransaction()) {
-        var brand = _session.Get<Brands>(entity.ID);
-        brand.Name = entity.Name;
-        await _session.UpdateAsync(brand);
+        await _session.UpdateAsync(entity);
         tx.Commit();
       }
     }

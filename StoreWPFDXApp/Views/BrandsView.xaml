@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local_brands="clr-namespace:StoreWPFDXApp.Models"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
@@ -27,11 +26,11 @@
         </dxb:ToolBarControl>
         <dxg:GridControl x:Name="grid" Grid.Row="1" Width="300">
             <dxg:GridControl.View>
-                <dxg:TableView NewItemRowPosition="Top" ShowUpdateRowButtons="OnCellEditorOpen" AutoWidth="True"
+                <dxg:TableView NewItemRowPosition="Top" ShowUpdateRowButtons="OnCellEditorOpen" VerticalScrollbarVisibility="Auto" AutoWidth="True"
                                ValidateRowCommand="{Binding ValidateRowAsyncCommand}" ValidateRowDeletionCommand="{Binding ValidateRowDeletionAsyncCommand}"/>
             </dxg:GridControl.View>
             <dxg:GridControl.ItemsSource>
-                <dx:InfiniteAsyncSource ElementType="local_brands:Brands" KeyProperty="Id" FetchRowsCommand="{Binding FetchRowsCommand}" />
+                <dx:InfiniteAsyncSource ElementType="ViewModels:BrandGridItemViewModel" KeyProperty="Id" FetchRowsCommand="{Binding FetchRowsCommand}" />
             </dxg:GridControl.ItemsSource>
             <dxg:GridColumn FieldName="Name" Header="Наименование" HorizontalHeaderContentAlignment="Center" IsSmart="True" AllowEditing="True" Width="265" />
             <dxg:GridControl.InputBindings>

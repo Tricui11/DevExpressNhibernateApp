@@ -1,69 +1,76 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using DevExpress.Data.Filtering;
 using DevExpress.Mvvm;
+using DevExpress.Mvvm.DataAnnotations;
 using DevExpress.Mvvm.Xpf;
 using DevExpress.Xpf.Data;
 using NHibernate;
+using NHibernate.Util;
 using StoreWPFDXApp.Models;
-using System.Collections;
+using StoreWPFDXApp.ViewModels.Services.Abstract;
 
 namespace StoreWPFDXApp.ViewModels {
   public class ProductsViewModel : ViewModelBase {
     private readonly ISession _session;
+    private readonly IProductsService _productsService;
 
-    public ProductsViewModel(ISession session) {
+    public ProductsViewModel(ISession session, IProductsService productsService) {
       _session = session;
+      _productsService = productsService;
     }
 
-    [DevExpress.Mvvm.DataAnnotations.Command]
+    [Command]
     public void FetchRows(FetchRowsAsyncArgs args) {
       args.Result = Task.Run<FetchRowsResult>(() => {
         using (var tx = _session.BeginTransaction()) {
           var query = _session.Query<Products>()
-              .SortBy(args.SortOrder, defaultUniqueSortPropertyName: nameof(Products.Name))
-              .Where(MakeFilterExpression((DevExpress.Data.Filtering.CriteriaOperator)args.Filter));
+              .SortBy(args.SortOrder, defaultUniqueSortPropertyName: nameof(ProductGridItemViewModel.ID))
+              .Where(MakeFilterExpression((CriteriaOperator)args.Filter));
           var products = query.Skip(args.Skip).Take(args.Take ?? 100).ToArray();
           tx.Commit();
-          return products;
+          foreach (var product in products) {
+            product.BrandID = product.Brands.ID;
+            product.CategoryID = product.Categories.ID;
+          }
+          var vms = products.Select(x => new ProductGridItemViewModel(x)).ToArray();
+          return vms;
         }
       });
     }
 
-    System.Linq.Expressions.Expression<System.Func<Products, bool>> MakeFilterExpression(DevExpress.Data.Filtering.CriteriaOperator filter) {
+    Expression<Func<Products, bool>> MakeFilterExpression(CriteriaOperator filter) {
       var converter = new GridFilterCriteriaToExpressionConverter<Products>();
       return converter.Convert(filter);
     }
-    [DevExpress.Mvvm.DataAnnotations.Command]
-    public void ValidateRow(RowValidationArgs args) {
-      //var item = (Products)args.Item;
-      //var context = new ProductsContext();
-      //context.Entry(item).State = args.IsNewItem ? EntityState.Added : EntityState.Modified;
-      //try {
-      //  context.SaveChanges();
-      //}
-      //finally {
-      //  context.Entry(item).State = EntityState.Detached;
-      //}
+    [Command]
+    public async Task ValidateRowAsync(RowValidationArgs args) {
+      var productVM = (ProductGridItemViewModel)args.Item;
+      var product = productVM.GetModel();
+      product.Brands = Brands.First(x => x.ID == product.BrandID);
+      product.Categories = Categories.First(x => x.ID == product.CategoryID);
+      if (product.ID == 0) {
+        var createdId = await _productsService.CreateAsync(product);
+        product.ID = createdId;
+      } else {
+        await _productsService.UpdateAsync(product);
+      }
     }
-    [DevExpress.Mvvm.DataAnnotations.Command]
-    public void ValidateRowDeletion(ValidateRowDeletionArgs args) {
-      //var item = (Products)args.Items.Single();
-      //var context = new ProductsContext();
-      //context.Entry(item).State = EntityState.Deleted;
-      //context.SaveChanges();
+    [Command]
+    public async Task ValidateRowDeletionAsync(ValidateRowDeletionArgs args) {
+      var product = (ProductGridItemViewModel)args.Items.Single();
+      await _productsService.DeleteAsync(product.ID);
     }
 
-    IList _brands;
-    public IList Brands {
+    ICollection<Brands> _brands;
+    public ICollection<Brands> Brands {
       get {
         if (_brands == null && !IsInDesignMode) {
           using (var tx = _session.BeginTransaction()) {
-            var query = from b in _session.Query<Brands>()
-                        select new {
-                          ID = b.ID,
-                          Name = b.Name
-                        };
-            _brands = query.ToArray();
+            _brands = _session.Query<Brands>().ToArray();
             tx.Commit();
           }
         }
@@ -71,17 +78,12 @@ namespace StoreWPFDXApp.ViewModels {
       }
     }
 
-    IList _categories;
-    public IList Categories {
+    ICollection<Categories> _categories;
+    public ICollection<Categories> Categories {
       get {
         if (_categories == null && !IsInDesignMode) {
           using (var tx = _session.BeginTransaction()) {
-            var query = from b in _session.Query<Categories>()
-                        select new {
-                          ID = b.ID,
-                          Name = b.Name
-                        };
-            _categories = query.ToArray();
+            _categories = _session.Query<Categories>().ToArray();
             tx.Commit();
           }
         }
@@ -89,7 +91,7 @@ namespace StoreWPFDXApp.ViewModels {
       }
     }
 
-    [DevExpress.Mvvm.DataAnnotations.Command]
+    [Command]
     public void DataSourceRefresh(DataSourceRefreshArgs args) {
       _brands = null;
       RaisePropertyChanged(nameof(Brands));
