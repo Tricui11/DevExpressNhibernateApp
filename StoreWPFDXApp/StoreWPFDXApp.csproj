@@ -116,8 +116,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\BitmapImageHelper.cs" />
+    <Compile Include="Models\IUniqueIdentifier.cs" />
     <Compile Include="Models\Repositories\Abstract\IBrandRepository.cs" />
     <Compile Include="Models\Repositories\Abstract\IProductRepository.cs" />
+    <Compile Include="Models\Repositories\BaseRepository.cs" />
     <Compile Include="Models\Repositories\BrandRepository.cs" />
     <Compile Include="Models\Repositories\ProductRepository.cs" />
     <Compile Include="ViewModels\BrandGridItemViewModel.cs" />

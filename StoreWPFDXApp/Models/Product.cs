@@ -1,7 +1,8 @@
 ﻿using System;
+using StoreWPFDXApp.Models.Repositories.Abstract;
 
 namespace StoreWPFDXApp.Models {
-  public class Product {
+  public class Product : IUniqueIdentifier {
     public virtual Guid UuId { get; set; }
     public virtual string Name { get; set; }
     public virtual byte[] ImageData { get; set; }

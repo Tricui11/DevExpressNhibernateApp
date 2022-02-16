@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using StoreWPFDXApp.Models.Repositories.Abstract;
 
 namespace StoreWPFDXApp.Models {
-  public class Category {
+  public class Category : IUniqueIdentifier {
     public virtual Guid UuId { get; set; }
     public virtual Guid ParentUuId { get; set; }
     public virtual string Name { get; set; }
