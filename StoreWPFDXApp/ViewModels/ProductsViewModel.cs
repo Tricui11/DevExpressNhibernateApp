@@ -72,7 +72,7 @@ namespace StoreWPFDXApp.ViewModels {
       get {
         if (_brands == null && !IsInDesignMode) {
           using (var tx = _session.BeginTransaction()) {
-            _brands = _session.Query<Brand>().ToArray();
+            _brands = _session.Query<Brand>().Where(x => !x.IsDeleted).ToArray();
             tx.Commit();
           }
         }
@@ -85,7 +85,7 @@ namespace StoreWPFDXApp.ViewModels {
       get {
         if (_categories == null && !IsInDesignMode) {
           using (var tx = _session.BeginTransaction()) {
-            _categories = _session.Query<Category>().ToArray();
+            _categories = _session.Query<Category>().Where(x => !x.IsDeleted).ToArray();
             tx.Commit();
           }
         }
