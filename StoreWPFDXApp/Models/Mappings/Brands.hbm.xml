@@ -3,7 +3,7 @@
 <hibernate-mapping xmlns = "urn:nhibernate-mapping-2.2"
    assembly = "StoreWPFDXApp" namespace = "StoreWPFDXApp.Models">
 
-  <class name = "Brands">
+  <class name = "Brand" table="Brands">
     <id name = "UuId" type="guid">
       <generator class = "guid.comb"/>
     </id>
@@ -13,7 +13,7 @@
     
     <bag name="Products" inverse="true">
       <key column="UuId"/>
-      <one-to-many class="Products"/>
+      <one-to-many class="Product"/>
     </bag>
   </class>
 

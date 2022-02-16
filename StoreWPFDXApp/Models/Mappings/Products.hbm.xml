@@ -3,7 +3,7 @@
 <hibernate-mapping xmlns = "urn:nhibernate-mapping-2.2"
    assembly = "StoreWPFDXApp" namespace = "StoreWPFDXApp.Models">
 
-  <class name = "Products">
+  <class name = "Product" table="Products">
     <id name = "UuId" type="guid">
       <generator class = "guid.comb"/>
     </id>
@@ -14,8 +14,8 @@
     <property name = "Description"/>
     <property name = "Price"/>
 
-    <many-to-one name="Brands" class="Brands" column="BrandUuId" cascade = "None"/>
-    <many-to-one name="Categories" class="Categories" column="CategoryUuId" cascade = "None"/>
+    <many-to-one name="Brands" class="Brand" column="BrandUuId" cascade = "None"/>
+    <many-to-one name="Categories" class="Category" column="CategoryUuId" cascade = "None"/>
   </class>
 
 </hibernate-mapping>

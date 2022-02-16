@@ -3,13 +3,13 @@ using StoreWPFDXApp.Models;
 
 namespace StoreWPFDXApp.ViewModels {
   public class BrandGridItemViewModel {
-    private readonly Brands _model;
+    private readonly Brand _model;
 
     public BrandGridItemViewModel() {
-      _model = new Brands();
+      _model = new Brand();
     }
 
-    public BrandGridItemViewModel(Brands model) {
+    public BrandGridItemViewModel(Brand model) {
       _model = model;
     }
 
@@ -19,6 +19,6 @@ namespace StoreWPFDXApp.ViewModels {
       set => _model.Name = value;
     }
 
-    public Brands GetModel() => _model;
+    public Brand GetModel() => _model;
   }
 }

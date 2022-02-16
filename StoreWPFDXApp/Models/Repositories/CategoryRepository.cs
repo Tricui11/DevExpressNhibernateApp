@@ -13,15 +13,15 @@ namespace StoreWPFDXApp.Models.Repositories {
       _session = session;
     }
 
-    public async Task<IEnumerable<Categories>> GetAllAsync() {
+    public async Task<IEnumerable<Category>> GetAllAsync() {
       using (var tx = _session.BeginTransaction()) {
-        var categories = await _session.CreateCriteria<Categories>().ListAsync<Categories>();
+        var categories = await _session.CreateCriteria<Category>().ListAsync<Category>();
         tx.Commit();
         return categories.Where(x => !x.IsDeleted);
       }
     }
 
-    public async Task<Guid> AddAsync(Categories entity) {
+    public async Task<Guid> AddAsync(Category entity) {
       using (var tx = _session.BeginTransaction()) {
         await _session.SaveAsync(entity);
         tx.Commit();
@@ -29,9 +29,9 @@ namespace StoreWPFDXApp.Models.Repositories {
       }
     }
 
-    public async Task UpdateAsync(Categories entity) {
+    public async Task UpdateAsync(Category entity) {
       using (var tx = _session.BeginTransaction()) {
-        var category = _session.Get<Categories>(entity.UuId);
+        var category = _session.Get<Category>(entity.UuId);
         if (category.Name != entity.Name) {
           category.Name = entity.Name;
         }
@@ -48,7 +48,7 @@ namespace StoreWPFDXApp.Models.Repositories {
 
     public async Task UpdateParentAsync(Guid entityUuId, Guid parentUuId) {
       using (var tx = _session.BeginTransaction()) {
-        var category = _session.Get<Categories>(entityUuId);
+        var category = _session.Get<Category>(entityUuId);
         category.ParentUuId = parentUuId;
         await _session.UpdateAsync(category);
         tx.Commit();
@@ -57,7 +57,7 @@ namespace StoreWPFDXApp.Models.Repositories {
 
     public async Task DeleteAsync(IEnumerable<Guid> uuIds) {
       using (var tx = _session.BeginTransaction()) {
-        var categories = await _session.QueryOver<Categories>()
+        var categories = await _session.QueryOver<Category>()
           .WhereRestrictionOn(val => val.UuId)
           .IsIn(uuIds.ToArray())
           .ListAsync();

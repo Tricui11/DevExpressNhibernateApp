@@ -6,18 +6,18 @@ using StoreWPFDXApp.ViewModels.Services.Abstract;
 
 namespace StoreWPFDXApp.ViewModels {
   public class CategoryNodeItemViewModel : IEditableObject {
-    private readonly Categories _model;
+    private readonly Category _model;
 
     public CategoryNodeItemViewModel() {
-      _model = new Categories();
+      _model = new Category();
     }
 
-    public CategoryNodeItemViewModel(Categories model, ICategoriesService categoriesService) {
+    public CategoryNodeItemViewModel(Category model, ICategoryService categoriesService) {
       _model = model;
       CategoriesService = categoriesService;
     }
 
-    public ICategoriesService CategoriesService { get; set; }
+    public ICategoryService CategoriesService { get; set; }
 
     public Guid UuId => _model.UuId;
     public Guid ParentUuId {

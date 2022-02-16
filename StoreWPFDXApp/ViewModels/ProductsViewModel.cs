@@ -19,9 +19,9 @@ using StoreWPFDXApp.ViewModels.Services.Abstract;
 namespace StoreWPFDXApp.ViewModels {
   public class ProductsViewModel : ViewModelBase {
     private readonly ISession _session;
-    private readonly IProductsService _productsService;
+    private readonly IProductService _productsService;
 
-    public ProductsViewModel(ISession session, IProductsService productsService) {
+    public ProductsViewModel(ISession session, IProductService productsService) {
       _session = session;
       _productsService = productsService;
     }
@@ -30,7 +30,7 @@ namespace StoreWPFDXApp.ViewModels {
     public void FetchRows(FetchRowsAsyncArgs args) {
       args.Result = Task.Run<FetchRowsResult>(() => {
         using (var tx = _session.BeginTransaction()) {
-          var query = _session.Query<Products>()
+          var query = _session.Query<Product>()
               .SortBy(args.SortOrder, defaultUniqueSortPropertyName: nameof(ProductGridItemViewModel.UuId))
               .Where(MakeFilterExpression((CriteriaOperator)args.Filter));
           var products = query.Skip(args.Skip).Take(args.Take ?? 100).ToArray();
@@ -45,8 +45,8 @@ namespace StoreWPFDXApp.ViewModels {
       });
     }
 
-    Expression<Func<Products, bool>> MakeFilterExpression(CriteriaOperator filter) {
-      var converter = new GridFilterCriteriaToExpressionConverter<Products>();
+    Expression<Func<Product, bool>> MakeFilterExpression(CriteriaOperator filter) {
+      var converter = new GridFilterCriteriaToExpressionConverter<Product>();
       return converter.Convert(filter);
     }
     [Command]
@@ -68,12 +68,12 @@ namespace StoreWPFDXApp.ViewModels {
       await _productsService.DeleteAsync(product.UuId);
     }
 
-    ICollection<Brands> _brands;
-    public ICollection<Brands> Brands {
+    ICollection<Brand> _brands;
+    public ICollection<Brand> Brands {
       get {
         if (_brands == null && !IsInDesignMode) {
           using (var tx = _session.BeginTransaction()) {
-            _brands = _session.Query<Brands>().ToArray();
+            _brands = _session.Query<Brand>().ToArray();
             tx.Commit();
           }
         }
@@ -81,12 +81,12 @@ namespace StoreWPFDXApp.ViewModels {
       }
     }
 
-    ICollection<Categories> _categories;
-    public ICollection<Categories> Categories {
+    ICollection<Category> _categories;
+    public ICollection<Category> Categories {
       get {
         if (_categories == null && !IsInDesignMode) {
           using (var tx = _session.BeginTransaction()) {
-            _categories = _session.Query<Categories>().ToArray();
+            _categories = _session.Query<Category>().ToArray();
             tx.Commit();
           }
         }

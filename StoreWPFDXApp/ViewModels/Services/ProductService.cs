@@ -5,14 +5,14 @@ using StoreWPFDXApp.Models.Repositories.Abstract;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
 
 namespace StoreWPFDXApp.ViewModels.Services {
-  class ProductsService : IProductsService {
+  class ProductService : IProductService {
     private readonly IProductRepository _productRepository;
 
-    public ProductsService(IProductRepository productRepository) {
+    public ProductService(IProductRepository productRepository) {
       _productRepository = productRepository;
     }
 
-    public async Task<Guid> CreateAsync(Products product) {
+    public async Task<Guid> CreateAsync(Product product) {
       var uuId = await _productRepository.AddAsync(product);
       return uuId;
     }
@@ -21,7 +21,7 @@ namespace StoreWPFDXApp.ViewModels.Services {
       await _productRepository.DeleteAsync(uuId);
     }
 
-    public async Task UpdateAsync(Products product) {
+    public async Task UpdateAsync(Product product) {
       await _productRepository.UpdateAsync(product);
     }
   }

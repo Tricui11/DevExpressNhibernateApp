@@ -9,10 +9,10 @@ using StoreWPFDXApp.ViewModels.Services.Abstract;
 
 namespace StoreWPFDXApp.ViewModels {
   public class CategoriesViewModel : ViewModelBase {
-    private readonly ICategoriesService _categoriesService;
+    private readonly ICategoryService _categoriesService;
     private List<Guid> _actualUndeletedCategoriesUuIds;
 
-    public CategoriesViewModel(ICategoriesService categoriesService) {
+    public CategoriesViewModel(ICategoryService categoriesService) {
       _categoriesService = categoriesService;
 
       var categories = Task.Run(async () => await _categoriesService.GetAllAsync()).Result;

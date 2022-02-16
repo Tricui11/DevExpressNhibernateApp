@@ -12,7 +12,7 @@ namespace StoreWPFDXApp.Models.Repositories {
       _session = session;
     }
 
-    public async Task<Guid> AddAsync(Brands entity) {
+    public async Task<Guid> AddAsync(Brand entity) {
       using (var tx = _session.BeginTransaction()) {
         await _session.SaveAsync(entity);
         tx.Commit();
@@ -22,18 +22,18 @@ namespace StoreWPFDXApp.Models.Repositories {
 
     public async Task DeleteAsync(Guid uuId) {
       using (var tx = _session.BeginTransaction()) {
-        var brand = _session.Get<Brands>(uuId);
+        var brand = _session.Get<Brand>(uuId);
         brand.IsDeleted = true;
         await _session.UpdateAsync(brand);
         tx.Commit();
       }
     }
 
-    public Task<IEnumerable<Brands>> GetAllAsync() {
+    public Task<IEnumerable<Brand>> GetAllAsync() {
       throw new System.NotImplementedException();
     }
 
-    public async Task UpdateAsync(Brands entity) {
+    public async Task UpdateAsync(Brand entity) {
       using (var tx = _session.BeginTransaction()) {
         await _session.UpdateAsync(entity);
         tx.Commit();

@@ -6,15 +6,15 @@ using StoreWPFDXApp.Models;
 
 namespace StoreWPFDXApp.ViewModels {
   public class ProductGridItemViewModel : ViewModelBase {
-    private readonly Products _model;
+    private readonly Product _model;
 
     public ProductGridItemViewModel() {
-      _model = new Products();
-      _model.Brands = new Brands();
-      _model.Categories = new Categories();
+      _model = new Product();
+      _model.Brands = new Brand();
+      _model.Categories = new Category();
     }
 
-    public ProductGridItemViewModel(Products model) {
+    public ProductGridItemViewModel(Product model) {
       _model = model;
     }
 
@@ -53,6 +53,6 @@ namespace StoreWPFDXApp.ViewModels {
 
     public BitmapImage Image => _model.ImageData != null ? BitmapImageHelper.GetFromByteArray(_model.ImageData) : null;
 
-    public Products GetModel() => _model;
+    public Product GetModel() => _model;
   }
 }

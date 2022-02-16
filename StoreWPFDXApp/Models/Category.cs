@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace StoreWPFDXApp.Models {
-  public class Categories {
+  public class Category {
     public virtual Guid UuId { get; set; }
     public virtual Guid ParentUuId { get; set; }
     public virtual string Name { get; set; }
@@ -10,9 +10,9 @@ namespace StoreWPFDXApp.Models {
     public virtual string KeyWords { get; set; }
     public virtual bool IsDeleted { get; set; }
 
-    private IList<Products> _products;
-    public virtual IList<Products> Products {
-      get => _products ?? (_products = new List<Products>());
+    private IList<Product> _products;
+    public virtual IList<Product> Products {
+      get => _products ?? (_products = new List<Product>());
       set => _products = value;
     }
   }

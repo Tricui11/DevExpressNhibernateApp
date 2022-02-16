@@ -14,9 +14,9 @@ using StoreWPFDXApp.ViewModels.Services.Abstract;
 namespace StoreWPFDXApp.ViewModels {
   public class BrandsViewModel : ViewModelBase {
     private readonly ISession _session;
-    private readonly IBrandsService _brandsService;
+    private readonly IBrandService _brandsService;
 
-    public BrandsViewModel(ISession session, IBrandsService brandsService) {
+    public BrandsViewModel(ISession session, IBrandService brandsService) {
       _session = session;
       _brandsService = brandsService;
     }
@@ -25,7 +25,7 @@ namespace StoreWPFDXApp.ViewModels {
     public void FetchRows(FetchRowsAsyncArgs args) {
       args.Result = Task.Run<FetchRowsResult>(() => {
         using (var tx = _session.BeginTransaction()) {
-          var query = _session.Query<Brands>().Where(x => !x.IsDeleted)
+          var query = _session.Query<Brand>().Where(x => !x.IsDeleted)
           .SortBy(args.SortOrder, defaultUniqueSortPropertyName: nameof(BrandGridItemViewModel.Name))
           .Where(MakeFilterExpression((CriteriaOperator)args.Filter));
           var brands = query.Skip(args.Skip).Take(args.Take ?? 100).ToArray();
@@ -35,8 +35,8 @@ namespace StoreWPFDXApp.ViewModels {
         }
       });
     }
-    Expression<Func<Brands, bool>> MakeFilterExpression(CriteriaOperator filter) {
-      var converter = new GridFilterCriteriaToExpressionConverter<Brands>();
+    Expression<Func<Brand, bool>> MakeFilterExpression(CriteriaOperator filter) {
+      var converter = new GridFilterCriteriaToExpressionConverter<Brand>();
       return converter.Convert(filter);
     }
 

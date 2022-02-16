@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using StoreWPFDXApp.Models.Repositories.Abstract;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
-using Categories = StoreWPFDXApp.Models.Categories;
+using Category = StoreWPFDXApp.Models.Category;
 
 namespace StoreWPFDXApp.ViewModels.Services {
-  class CategoriesService : ICategoriesService {
+  class CategoryService : ICategoryService {
     private readonly ICategoryRepository _categoryRepository;
 
-    public CategoriesService(ICategoryRepository categoryRepository) {
+    public CategoryService(ICategoryRepository categoryRepository) {
       _categoryRepository = categoryRepository;
     }
 
-    public async Task<IEnumerable<Categories>> GetAllAsync() {
+    public async Task<IEnumerable<Category>> GetAllAsync() {
       var data = await _categoryRepository.GetAllAsync();
       return data;
     }
 
-    public async Task<Guid> CreateAsync(Categories model) {
+    public async Task<Guid> CreateAsync(Category model) {
       var uuId = await _categoryRepository.AddAsync(model);
       return uuId;
     }
 
-    public async Task UpdateAsync(Categories model) {
+    public async Task UpdateAsync(Category model) {
       await _categoryRepository.UpdateAsync(model);
     }
 
