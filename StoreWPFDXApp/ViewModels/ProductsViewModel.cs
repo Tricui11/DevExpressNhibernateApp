@@ -36,8 +36,8 @@ namespace StoreWPFDXApp.ViewModels {
           var products = query.Skip(args.Skip).Take(args.Take ?? 100).ToArray();
           tx.Commit();
           foreach (var product in products) {
-            product.BrandUuId = product.Brands.UuId;
-            product.CategoryUuId = product.Categories.UuId;
+            product.BrandUuId = product.Brands?.UuId;
+            product.CategoryUuId = product.Categories?.UuId;
           }
           var vms = products.Select(x => new ProductGridItemViewModel(x)).ToArray();
           return vms;
@@ -53,8 +53,8 @@ namespace StoreWPFDXApp.ViewModels {
     public async Task ValidateRowAsync(RowValidationArgs args) {
       var productVM = (ProductGridItemViewModel)args.Item;
       var product = productVM.GetModel();
-      product.Brands = Brands.First(x => x.UuId == product.BrandUuId);
-      product.Categories = Categories.First(x => x.UuId == product.CategoryUuId);
+      product.Brands = Brands.FirstOrDefault(x => x.UuId == product.BrandUuId);
+      product.Categories = Categories.FirstOrDefault(x => x.UuId == product.CategoryUuId);
       if (product.UuId == default(Guid)) {
         var createdUuId = await _productsService.CreateAsync(product);
         product.UuId = createdUuId;
@@ -103,6 +103,11 @@ namespace StoreWPFDXApp.ViewModels {
     [Command]
     public async Task SetImageAsync(object param) {
       var productVM = param as ProductGridItemViewModel;
+      if (productVM == null) { return; }
+      if (productVM.UuId == default(Guid)) {
+        MessageBox.Show("Сначала создайте продукт, потом выберите фотографию.");
+        return;
+      }
       var imagePath = BitmapImageHelper.OpenImageFromFileAndReturnPath();
       if (string.IsNullOrEmpty(imagePath)) {
         return;

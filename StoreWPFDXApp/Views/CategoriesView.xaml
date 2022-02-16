@@ -7,7 +7,7 @@
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
         xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
         xmlns:ViewModels="clr-namespace:StoreWPFDXApp.ViewModels"
-        xmlns:common="clr-namespace:StoreWPFDXApp.Common"
+        xmlns:common="clr-namespace:StoreWPFDXApp.Common" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         DataContext="{common:DISource Type=ViewModels:CategoriesViewModel}"
         mc:Ignorable="d" Height="450" Width="700"
         Title="Категории" WindowStartupLocation="CenterScreen">
@@ -38,8 +38,16 @@
                 </dxg:TreeListView>
             </dxg:TreeListControl.View>
             <dxg:TreeListColumn FieldName="Name" Header="Наименование" Width="150"/>
-            <dxg:TreeListColumn FieldName="Description" Header="Описание" Width="265" />
-            <dxg:TreeListColumn FieldName="KeyWords" Header="Ключевые слова" Width="170" />
+            <dxg:TreeListColumn FieldName="Description" Header="Описание" Width="265" MaxWidth="1024">
+                <dxg:TreeListColumn.EditSettings>
+                    <dxe:TextEditSettings TextWrapping="Wrap"/>
+                </dxg:TreeListColumn.EditSettings>
+            </dxg:TreeListColumn>
+            <dxg:TreeListColumn FieldName="KeyWords" Header="Ключевые слова" Width="170" MaxWidth="200">
+                <dxg:TreeListColumn.EditSettings>
+                    <dxe:TextEditSettings TextWrapping="Wrap"/>
+                </dxg:TreeListColumn.EditSettings>
+            </dxg:TreeListColumn>
         </dxg:TreeListControl>        
     </DockPanel>
 </Window>

@@ -10,7 +10,7 @@
         xmlns:ViewModels="clr-namespace:StoreWPFDXApp.ViewModels"
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
         DataContext="{common:DISource Type=ViewModels:ProductsViewModel}"
-        Title="Товары" mc:Ignorable="d" Height="450" Width="800"
+        Title="Товары" mc:Ignorable="d" Height="550" Width="810"
         WindowStartupLocation="CenterScreen">  
     <Grid>
         <Grid.RowDefinitions>
@@ -36,7 +36,7 @@
             <dxg:GridControl.ItemsSource>
                 <dx:InfiniteAsyncSource ElementType="ViewModels:ProductGridItemViewModel" KeyProperty="UuId" FetchRowsCommand="{Binding FetchRowsCommand}" />
             </dxg:GridControl.ItemsSource>
-            <dxg:GridColumn FieldName="Image" IsSmart="True" AllowEditing="False" Header="Фото" Width="150">
+            <dxg:GridColumn FieldName="Image" AllowEditing="False" Header="Фото" Width="150">
                 <dxg:GridColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -47,46 +47,27 @@
                     </DataTemplate>
                 </dxg:GridColumn.CellTemplate>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Name" IsSmart="True" AllowEditing="True" Header="Наименование" Width="150"/>
-            <dxg:GridColumn FieldName="Article" IsSmart="True" AllowEditing="True" Header="Артикул" Width="100"/>
-            <dxg:GridColumn FieldName="CategoryUuId" IsSmart="True" AllowEditing="True" Header="Категория" Width="150">
+            <dxg:GridColumn FieldName="Name" AllowEditing="True" Header="Наименование" Width="150"/>
+            <dxg:GridColumn FieldName="Article" AllowEditing="True" Header="Артикул" Width="100"/>
+            <dxg:GridColumn FieldName="CategoryUuId" AllowEditing="True" Header="Категория" Width="150">
                 <dxg:GridColumn.EditSettings>
                     <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="UuId" ItemsSource="{Binding Categories}" />
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="BrandUuId" IsSmart="True" AllowEditing="True" Header="Торговая марка" Width="100">
+            <dxg:GridColumn FieldName="BrandUuId" AllowEditing="True" Header="Торговая марка" Width="150">
                 <dxg:GridColumn.EditSettings>
                     <dxe:ComboBoxEditSettings DisplayMember="Name" ValueMember="UuId" ItemsSource="{Binding Brands}" />
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
-            <dxg:GridColumn FieldName="Description" IsSmart="True" AllowEditing="True" Header="Описание" Width="205"/>
-            <dxg:GridColumn FieldName="Price" IsSmart="True" AllowEditing="True" Header="Цена" Width="43"/>
+            <dxg:GridColumn FieldName="Description" AllowEditing="True" Header="Описание" Width="205" MaxWidth="1024">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings TextWrapping="Wrap"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="Price" AllowEditing="True" Header="Цена" Width="50"/>
             <dxg:GridControl.InputBindings>
                 <KeyBinding Key="Delete" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}" />
             </dxg:GridControl.InputBindings>
         </dxg:GridControl>
     </Grid>
 </Window>
-
-
-
-
-
-
-
-
-
-
-
-<!--<dxg:GridColumn FieldName="Image" IsSmart="True" AllowEditing="False" Header="Фото" Width="150">
-    <dxg:GridColumn.CellTemplate>
-        <DataTemplate>
-            <StackPanel>
-                <Button Content="Выбрать" Margin="2" Visibility="{Binding HasImage, Mode=TwoWay}"
-                                    Command="{Binding View.DataContext.SetImageAsyncCommand}"
-                                    CommandParameter="{Binding RowData.Row}"/>
-                <dxe:ImageEdit x:Name="PART_Editor" />
-            </StackPanel>
-        </DataTemplate>
-    </dxg:GridColumn.CellTemplate>
-</dxg:GridColumn>-->

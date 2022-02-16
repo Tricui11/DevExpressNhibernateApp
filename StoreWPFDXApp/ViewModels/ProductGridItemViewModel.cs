@@ -35,11 +35,11 @@ namespace StoreWPFDXApp.ViewModels {
       get => _model.Price;
       set => _model.Price = value;
     }
-    public Guid BrandUuId {
+    public Guid? BrandUuId {
       get => _model.BrandUuId;
       set => _model.BrandUuId = value;
     }
-    public Guid CategoryUuId {
+    public Guid? CategoryUuId {
       get => _model.CategoryUuId;
       set => _model.CategoryUuId = value;
     }
@@ -47,13 +47,11 @@ namespace StoreWPFDXApp.ViewModels {
       get => _model.ImageData;
       set {
         _model.ImageData = value;
-        RaisePropertiesChanged();
+        RaisePropertyChanged(nameof(Image));
       }
     }
 
-    public bool HasImage => _model.ImageData != null;
-
-    public BitmapImage Image => HasImage ? BitmapImageHelper.GetFromByteArray(_model.ImageData) : null;
+    public BitmapImage Image => _model.ImageData != null ? BitmapImageHelper.GetFromByteArray(_model.ImageData) : null;
 
     public Products GetModel() => _model;
   }
