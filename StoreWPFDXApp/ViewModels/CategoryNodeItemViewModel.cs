@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using DevExpress.Mvvm;
 using StoreWPFDXApp.Models;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
 
 namespace StoreWPFDXApp.ViewModels {
-  public class CategoryNodeItemViewModel : IEditableObject {
+  public class CategoryNodeItemViewModel : ViewModelBase, IEditableObject {
     private readonly Category _model;
 
     public CategoryNodeItemViewModel() {
@@ -52,6 +53,7 @@ namespace StoreWPFDXApp.ViewModels {
       if (_model.UuId == default(Guid)) {
         var newUuId = Task.Run(async () => await CategoriesService.CreateAsync(_model)).Result;
         _model.UuId = newUuId;
+        RaisePropertyChanged(nameof(UuId));
       } else {
         Task.Run(async () => await CategoriesService.UpdateAsync(_model));
       }

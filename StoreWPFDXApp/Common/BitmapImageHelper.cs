@@ -13,7 +13,7 @@ namespace StoreWPFDXApp.Common {
 
     static public string OpenImageFromFileAndReturnPath() {
       var openFileDialog = new OpenFileDialog();
-      openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;";
+      openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.webp";
       if (openFileDialog.ShowDialog() == false) {
         return string.Empty;
       }

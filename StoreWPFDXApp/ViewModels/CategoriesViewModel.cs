@@ -21,9 +21,9 @@ namespace StoreWPFDXApp.ViewModels {
         Categories.Add(vm);
       }
       Categories.CollectionChanged += Categories_CollectionChanged;
-      _actualUndeletedCategoriesUuIds = Categories.Select(x => x.UuId).ToList();
 
       DeleteSelectedItemCommand = new AsyncCommand(DeleteSelectedItemCommandExecuteAsync);
+      _actualUndeletedCategoriesUuIds = Categories.Select(x => x.UuId).ToList();
     }
 
     public ObservableCollection<CategoryNodeItemViewModel> Categories { get; } = new ObservableCollection<CategoryNodeItemViewModel>();
@@ -38,9 +38,9 @@ namespace StoreWPFDXApp.ViewModels {
     }
 
     void Categories_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
-      // Понимаю что криво, но Property Injection через PropertiesAutowired почему-то не работает
       if (e.Action == NotifyCollectionChangedAction.Add) {
         Categories.Last().CategoriesService = _categoriesService;
+        _actualUndeletedCategoriesUuIds = Categories.Select(x => x.UuId).ToList();
       }
     }
   }
