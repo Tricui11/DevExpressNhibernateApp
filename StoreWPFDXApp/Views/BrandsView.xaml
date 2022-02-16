@@ -33,9 +33,6 @@
                 <dx:InfiniteAsyncSource ElementType="ViewModels:BrandGridItemViewModel" KeyProperty="UuId" FetchRowsCommand="{Binding FetchRowsCommand}" />
             </dxg:GridControl.ItemsSource>
             <dxg:GridColumn FieldName="Name" Header="Наименование" HorizontalHeaderContentAlignment="Center" AllowEditing="True" Width="150" />
-            <dxg:GridControl.InputBindings>
-                <KeyBinding Key="Delete" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}" />
-            </dxg:GridControl.InputBindings>
         </dxg:GridControl>
     </Grid>
 </Window>

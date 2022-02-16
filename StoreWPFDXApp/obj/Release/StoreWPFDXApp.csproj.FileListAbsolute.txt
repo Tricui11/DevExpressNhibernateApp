@@ -97,3 +97,4 @@ C:\Users\Furer\Desktop\StoreWPFDXApp\StoreWPFDXApp\obj\Release\StoreWPFDXApp.csp
 C:\Users\Furer\Desktop\StoreWPFDXApp\StoreWPFDXApp\obj\Release\StoreWPFDXApp.csproj.CopyComplete
 C:\Users\Furer\Desktop\StoreWPFDXApp\StoreWPFDXApp\obj\Release\StoreWPFDXApp.exe
 C:\Users\Furer\Desktop\StoreWPFDXApp\StoreWPFDXApp\obj\Release\StoreWPFDXApp.pdb
+C:\Users\Furer\Desktop\StoreWPFDXApp\StoreWPFDXApp\obj\Release\StoreWPFDXApp.csproj.AssemblyReference.cache

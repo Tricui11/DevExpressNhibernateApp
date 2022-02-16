@@ -11,7 +11,6 @@ using DevExpress.Mvvm.DataAnnotations;
 using DevExpress.Mvvm.Xpf;
 using DevExpress.Xpf.Data;
 using NHibernate;
-using NHibernate.Util;
 using StoreWPFDXApp.Common;
 using StoreWPFDXApp.Models;
 using StoreWPFDXApp.ViewModels.Services.Abstract;
@@ -98,6 +97,8 @@ namespace StoreWPFDXApp.ViewModels {
     public void DataSourceRefresh(DataSourceRefreshArgs args) {
       _brands = null;
       RaisePropertyChanged(nameof(Brands));
+      _categories = null;
+      RaisePropertyChanged(nameof(Categories));
     }
 
     [Command]

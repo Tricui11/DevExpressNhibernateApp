@@ -65,9 +65,6 @@
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
             <dxg:GridColumn FieldName="Price" AllowEditing="True" Header="Цена" Width="50"/>
-            <dxg:GridControl.InputBindings>
-                <KeyBinding Key="Delete" Command="{Binding View.Commands.DeleteFocusedRow, ElementName=grid}" />
-            </dxg:GridControl.InputBindings>
         </dxg:GridControl>
     </Grid>
 </Window>
